@@ -6,6 +6,7 @@ import PageFooter from "@/components/PageFooter";
 import CounterNumber from "@/components/CounterNumber";
 import TiltCard from "@/components/TiltCard";
 import TextScramble from "@/components/TextScramble";
+import { VercoLogo, LionNathanLogo, BabcockBrownLogo, AgeasLogo } from "@/components/ClientLogos";
 
 /* ── Staggered fade-in on scroll ── */
 function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
@@ -96,8 +97,6 @@ export default function ConsultingPage() {
     { value: 2016, suffix: "", label: "Established", deco: "2016" },
     { value: 8, suffix: "+", label: "Countries", deco: "08" },
   ];
-  const clients = ["Verco", "Lion Nathan", "Babcock & Brown", "Ageas"];
-
   /* Parallax refs */
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
@@ -177,9 +176,10 @@ export default function ConsultingPage() {
           <div className="mt-24">
             <Reveal><p className="text-[#C9A84C] text-xs tracking-[0.4em] uppercase mb-10">Trusted By</p></Reveal>
             <div className="flex flex-wrap items-center gap-x-16 gap-y-6">
-              {clients.map((c, i) => (
-                <ClientName key={c} name={c} delay={i * 0.1} />
-              ))}
+              <Reveal delay={0}><motion.span className="text-[#011E41]/25 hover:text-[#011E41]/60 transition-colors cursor-default inline-block" whileHover={{ scale: 1.08 }} transition={{ type: "spring", stiffness: 400, damping: 15 }}><VercoLogo className="h-8" /></motion.span></Reveal>
+              <Reveal delay={0.1}><motion.span className="text-[#011E41]/25 hover:text-[#011E41]/60 transition-colors cursor-default inline-block" whileHover={{ scale: 1.08 }} transition={{ type: "spring", stiffness: 400, damping: 15 }}><LionNathanLogo className="h-8" /></motion.span></Reveal>
+              <Reveal delay={0.2}><motion.span className="text-[#011E41]/25 hover:text-[#011E41]/60 transition-colors cursor-default inline-block" whileHover={{ scale: 1.08 }} transition={{ type: "spring", stiffness: 400, damping: 15 }}><BabcockBrownLogo className="h-8" /></motion.span></Reveal>
+              <Reveal delay={0.3}><motion.span className="text-[#011E41]/25 hover:text-[#011E41]/60 transition-colors cursor-default inline-block" whileHover={{ scale: 1.08 }} transition={{ type: "spring", stiffness: 400, damping: 15 }}><AgeasLogo className="h-8" /></motion.span></Reveal>
             </div>
           </div>
         </div>

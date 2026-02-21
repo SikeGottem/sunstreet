@@ -69,21 +69,6 @@ export default function CoachingPage() {
         <motion.div className="max-w-7xl mx-auto relative z-10" variants={staggerContainer} initial="hidden" animate="show">
           <motion.div variants={staggerItem}><SectionLabel number="03" label="Coaching" /></motion.div>
 
-          {/* Gradient heading */}
-          <motion.div variants={staggerItem}>
-            <h1
-              className="font-sans text-6xl md:text-8xl font-bold tracking-tight mb-12"
-              style={{
-                background: "linear-gradient(135deg, #011E41 0%, #1a4a7a 50%, #2a6cb0 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              COACHING
-            </h1>
-          </motion.div>
-
           <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
             <div>
               <motion.div variants={staggerItem}><h2 className="text-gradient-navy font-sans text-5xl md:text-7xl leading-[0.95]"><TextScramble text="Change subconscious" /></h2></motion.div>

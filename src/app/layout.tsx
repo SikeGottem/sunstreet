@@ -24,7 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={ddin.variable}>
-      <body className="bg-[#0F1C2E] text-white font-sans antialiased">
+      <body className="bg-white text-[#011E41] font-sans antialiased">
         {children}
       </body>
     </html>

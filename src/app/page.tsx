@@ -24,16 +24,16 @@ function LandingSection() {
   ];
 
   return (
-    <section id="home" className="relative min-h-screen flex flex-col items-center justify-center px-6 py-24">
+    <section id="home" className="relative min-h-screen flex flex-col items-center justify-center px-6 py-24 bg-white">
       <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}>
         <SunLogo className="w-20 h-20 mx-auto mb-12" />
       </motion.div>
 
-      <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 0.8 }} className="text-xs tracking-[0.4em] uppercase text-white/40 mb-20">
+      <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 0.8 }} className="text-xs tracking-[0.4em] uppercase text-[#011E41]/40 mb-20">
         Welcome to Sun Street
       </motion.p>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl w-full">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl w-full">
         {cards.map((card, i) => (
           <motion.a
             key={card.id}
@@ -41,20 +41,20 @@ function LandingSection() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 + i * 0.15, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="group border border-white/10 bg-[#1B2A3D]/50 p-10 text-center hover:border-[#C9A84C]/40 transition-all duration-500"
+            className="group border-2 border-[#011E41]/15 bg-white p-12 text-center hover:bg-[#011E41] hover:border-[#011E41] transition-all duration-500 shadow-sm hover:shadow-xl rounded-sm"
             onClick={(e) => { e.preventDefault(); document.getElementById(card.id)?.scrollIntoView({ behavior: "smooth" }); }}
           >
-            <span className="text-[#C9A84C]/60 text-3xl block mb-6">{card.icon}</span>
-            <h3 className="font-sans text-2xl tracking-wide mb-4 group-hover:text-[#C9A84C] transition-colors duration-500">{card.title}</h3>
-            <p className="text-white/40 text-sm leading-relaxed">{card.desc}</p>
-            <div className="w-0 group-hover:w-12 h-px bg-[#C9A84C] mx-auto mt-6 transition-all duration-700" />
+            <span className="text-[#011E41]/40 text-3xl block mb-6 group-hover:text-white/60 transition-colors duration-500">{card.icon}</span>
+            <h3 className="font-sans text-2xl tracking-wide mb-4 text-[#011E41] group-hover:text-white transition-colors duration-500">{card.title}</h3>
+            <p className="text-[#011E41]/50 text-sm leading-relaxed group-hover:text-white/60 transition-colors duration-500">{card.desc}</p>
+            <div className="w-0 group-hover:w-12 h-px bg-white/50 mx-auto mt-6 transition-all duration-700" />
           </motion.a>
         ))}
       </div>
 
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }} className="absolute bottom-12 flex flex-col items-center gap-3">
-        <span className="text-[10px] tracking-[0.4em] uppercase text-white/20">Scroll</span>
-        <motion.div className="w-px h-10 bg-gradient-to-b from-[#C9A84C]/50 to-transparent" animate={{ height: [30, 50, 30] }} transition={{ duration: 2, repeat: Infinity }} />
+        <span className="text-[10px] tracking-[0.4em] uppercase text-[#011E41]/20">Scroll</span>
+        <motion.div className="w-px h-10 bg-gradient-to-b from-[#011E41]/30 to-transparent" animate={{ height: [30, 50, 30] }} transition={{ duration: 2, repeat: Infinity }} />
       </motion.div>
     </section>
   );
@@ -69,15 +69,15 @@ function StatsSection() {
     { value: 3, suffix: "", label: "Core Pillars" },
   ];
   return (
-    <section className="py-24 px-6 border-y border-white/5">
+    <section className="py-24 px-6 border-y border-[#011E41]/10 bg-[#EFEBE4]">
       <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
         {stats.map((stat, i) => (
           <Reveal key={stat.label} delay={i * 0.1}>
             <div className="text-center">
-              <div className="font-sans text-5xl md:text-7xl text-[#C9A84C] mb-2">
+              <div className="font-sans text-5xl md:text-7xl text-[#011E41] mb-2">
                 <CounterNumber end={stat.value} suffix={stat.suffix} duration={2 + i * 0.3} />
               </div>
-              <p className="text-white/30 text-xs tracking-[0.3em] uppercase">{stat.label}</p>
+              <p className="text-[#011E41]/40 text-xs tracking-[0.3em] uppercase">{stat.label}</p>
             </div>
           </Reveal>
         ))}
@@ -99,15 +99,15 @@ function ConsultingSection() {
   ];
 
   return (
-    <section id="consulting" className="py-32 px-6">
+    <section id="consulting" className="py-32 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
         <Reveal><p className="text-[#C9A84C] text-xs tracking-[0.4em] uppercase mb-6">Consulting</p></Reveal>
-        <Reveal delay={0.1}><h2 className="font-sans text-5xl md:text-7xl leading-[0.95] mb-2">With over <span className="text-[#C9A84C] italic">15 years</span></h2></Reveal>
-        <Reveal delay={0.2}><h2 className="font-sans text-5xl md:text-7xl leading-[0.95] mb-10">experience</h2></Reveal>
+        <Reveal delay={0.1}><h2 className="font-sans text-5xl md:text-7xl leading-[0.95] mb-2 text-[#011E41]">With over <span className="italic">15 years</span></h2></Reveal>
+        <Reveal delay={0.2}><h2 className="font-sans text-5xl md:text-7xl leading-[0.95] mb-10 text-[#011E41]">experience</h2></Reveal>
         <Reveal delay={0.3}>
           <div className="max-w-2xl mb-6">
-            <p className="text-white/50 text-lg leading-relaxed">Sun Street helps organisations develop and implement strategy. Established in 2016, we assist clients review, develop and implement strategic plans across industries.</p>
-            <p className="text-white/40 mt-4 leading-relaxed">Founded by an ex-management consultant with 15+ years of APAC experience. From large scale transformations to SME business reviews.</p>
+            <p className="text-[#011E41]/60 text-lg leading-relaxed">Sun Street helps organisations develop and implement strategy. Established in 2016, we assist clients review, develop and implement strategic plans across industries.</p>
+            <p className="text-[#011E41]/50 mt-4 leading-relaxed">Founded by an ex-management consultant with 15+ years of APAC experience. From large scale transformations to SME business reviews.</p>
           </div>
         </Reveal>
 
@@ -115,11 +115,11 @@ function ConsultingSection() {
         <div className="grid md:grid-cols-3 gap-6 mt-20 mb-32">
           {services.map((svc, i) => (
             <Reveal key={svc.num} delay={i * 0.1}>
-              <div className="border border-white/10 p-8 bg-[#1B2A3D]/30 h-full group hover:border-[#C9A84C]/30 transition-all duration-500">
-                <span className="text-[#C9A84C]/30 font-mono text-sm">{svc.num}</span>
-                <h4 className="font-sans text-2xl mt-4 mb-4 group-hover:text-[#C9A84C] transition-colors duration-500">{svc.title}</h4>
-                <p className="text-white/40 text-sm leading-relaxed">{svc.desc}</p>
-                <div className="w-0 group-hover:w-12 h-px bg-[#C9A84C] mt-6 transition-all duration-700" />
+              <div className="border-2 border-[#011E41]/15 p-8 bg-white h-full group hover:bg-[#011E41] hover:border-[#011E41] transition-all duration-500 shadow-sm hover:shadow-lg rounded-sm">
+                <span className="text-[#C9A84C]/50 font-mono text-sm group-hover:text-white/30 transition-colors duration-500">{svc.num}</span>
+                <h4 className="font-sans text-2xl mt-4 mb-4 text-[#011E41] group-hover:text-white transition-colors duration-500">{svc.title}</h4>
+                <p className="text-[#011E41]/50 text-sm leading-relaxed group-hover:text-white/60 transition-colors duration-500">{svc.desc}</p>
+                <div className="w-0 group-hover:w-12 h-px bg-white/50 mt-6 transition-all duration-700" />
               </div>
             </Reveal>
           ))}
@@ -127,13 +127,13 @@ function ConsultingSection() {
 
         {/* Case Studies */}
         <Reveal><p className="text-[#C9A84C] text-xs tracking-[0.4em] uppercase mb-4">Case Studies</p></Reveal>
-        <Reveal delay={0.1}><h3 className="font-sans text-4xl md:text-5xl mb-16">Programme & <span className="text-[#C9A84C] italic">Change Management</span></h3></Reveal>
+        <Reveal delay={0.1}><h3 className="font-sans text-4xl md:text-5xl mb-16 text-[#011E41]">Programme & <span className="italic">Change Management</span></h3></Reveal>
         <div className="grid md:grid-cols-2 gap-6">
           {caseStudies.map((cs, i) => (
             <Reveal key={cs.title} delay={i * 0.15}>
-              <div className="border border-white/10 p-8 md:p-10 bg-[#1B2A3D]/20 h-full">
+              <div className="border-2 border-[#011E41]/15 p-8 md:p-10 bg-[#EFEBE4] h-full rounded-sm">
                 <span className="text-[#C9A84C] text-xs tracking-[0.3em] uppercase">{cs.title}</span>
-                <p className="text-white/50 mt-4 leading-relaxed">{cs.desc}</p>
+                <p className="text-[#011E41]/60 mt-4 leading-relaxed">{cs.desc}</p>
               </div>
             </Reveal>
           ))}
@@ -145,7 +145,7 @@ function ConsultingSection() {
           <div className="flex flex-wrap items-center gap-x-16 gap-y-6">
             {["Verco", "Lion Nathan", "Babcock & Brown", "Ageas"].map((c, i) => (
               <Reveal key={c} delay={i * 0.1}>
-                <span className="text-white/20 hover:text-white/50 transition-colors text-xl font-sans tracking-wider">{c}</span>
+                <span className="text-[#011E41]/25 hover:text-[#011E41]/60 transition-colors text-xl font-sans tracking-wider">{c}</span>
               </Reveal>
             ))}
           </div>
@@ -164,21 +164,21 @@ function TradingSection() {
   ];
 
   return (
-    <section id="trading" className="py-32 px-6 border-t border-white/5">
+    <section id="trading" className="py-32 px-6 border-t border-[#011E41]/10 bg-[#EFEBE4]">
       <div className="max-w-7xl mx-auto">
         <Reveal><p className="text-[#C9A84C] text-xs tracking-[0.4em] uppercase mb-6">Trading &amp; Distribution</p></Reveal>
-        <Reveal delay={0.1}><h2 className="font-sans text-5xl md:text-7xl leading-[0.95]">Passionate About</h2></Reveal>
-        <Reveal delay={0.15}><h2 className="font-sans text-5xl md:text-7xl leading-[0.95] text-[#C9A84C] italic mb-10">Brands for Asia</h2></Reveal>
-        <Reveal delay={0.3}><p className="text-white/50 text-lg leading-relaxed max-w-2xl mb-20">At Sun Street, we are passionate about finding new or established brands for Asia. We connect global brands with the opportunities and networks they need to thrive in Asian markets.</p></Reveal>
+        <Reveal delay={0.1}><h2 className="font-sans text-5xl md:text-7xl leading-[0.95] text-[#011E41]">Passionate About</h2></Reveal>
+        <Reveal delay={0.15}><h2 className="font-sans text-5xl md:text-7xl leading-[0.95] text-[#011E41] italic mb-10">Brands for Asia</h2></Reveal>
+        <Reveal delay={0.3}><p className="text-[#011E41]/60 text-lg leading-relaxed max-w-2xl mb-20">At Sun Street, we are passionate about finding new or established brands for Asia. We connect global brands with the opportunities and networks they need to thrive in Asian markets.</p></Reveal>
 
         <div className="grid md:grid-cols-3 gap-6 mb-32">
           {services.map((svc, i) => (
             <Reveal key={svc.num} delay={i * 0.1}>
-              <div className="border border-white/10 p-8 bg-[#1B2A3D]/30 h-full group hover:border-[#C9A84C]/30 transition-all duration-500">
-                <span className="text-[#C9A84C]/30 font-mono text-sm">{svc.num}</span>
-                <h4 className="font-sans text-2xl mt-4 mb-4 group-hover:text-[#C9A84C] transition-colors duration-500">{svc.title}</h4>
-                <p className="text-white/40 text-sm leading-relaxed">{svc.desc}</p>
-                <div className="w-0 group-hover:w-12 h-px bg-[#C9A84C] mt-6 transition-all duration-700" />
+              <div className="border-2 border-[#011E41]/15 p-8 bg-white h-full group hover:bg-[#011E41] hover:border-[#011E41] transition-all duration-500 shadow-sm hover:shadow-lg rounded-sm">
+                <span className="text-[#C9A84C]/50 font-mono text-sm group-hover:text-white/30 transition-colors duration-500">{svc.num}</span>
+                <h4 className="font-sans text-2xl mt-4 mb-4 text-[#011E41] group-hover:text-white transition-colors duration-500">{svc.title}</h4>
+                <p className="text-[#011E41]/50 text-sm leading-relaxed group-hover:text-white/60 transition-colors duration-500">{svc.desc}</p>
+                <div className="w-0 group-hover:w-12 h-px bg-white/50 mt-6 transition-all duration-700" />
               </div>
             </Reveal>
           ))}
@@ -186,13 +186,13 @@ function TradingSection() {
 
         {/* Uppercut Deluxe */}
         <Reveal>
-          <div className="border border-[#C9A84C]/20 p-8 md:p-16">
+          <div className="border-2 border-[#011E41]/15 p-8 md:p-16 bg-white rounded-sm shadow-sm">
             <p className="text-[#C9A84C] text-xs tracking-[0.4em] uppercase mb-6">Featured Brand</p>
-            <h3 className="font-sans text-4xl md:text-5xl mb-6">Uppercut Deluxe</h3>
-            <p className="text-white/50 leading-relaxed max-w-2xl">Sun Street has been the authorised distributor of Uppercut Deluxe in Hong Kong and China since 2016 and contributed to Uppercut&apos;s expansion in Asia by supporting distribution partners in Indonesia, Japan and Singapore as well as appointing distributors in Thailand, Korea, and Taiwan.</p>
+            <h3 className="font-sans text-4xl md:text-5xl mb-6 text-[#011E41]">Uppercut Deluxe</h3>
+            <p className="text-[#011E41]/60 leading-relaxed max-w-2xl">Sun Street has been the authorised distributor of Uppercut Deluxe in Hong Kong and China since 2016 and contributed to Uppercut&apos;s expansion in Asia by supporting distribution partners in Indonesia, Japan and Singapore as well as appointing distributors in Thailand, Korea, and Taiwan.</p>
             <div className="flex flex-wrap gap-3 mt-8">
               {["Hong Kong", "China", "Indonesia", "Japan", "Singapore", "Thailand", "Korea", "Taiwan"].map((c) => (
-                <span key={c} className="text-[10px] tracking-[0.2em] uppercase border border-white/10 px-3 py-1 text-white/30 hover:border-[#C9A84C]/40 hover:text-[#C9A84C] transition-all duration-300">{c}</span>
+                <span key={c} className="text-[10px] tracking-[0.2em] uppercase border border-[#011E41]/15 px-3 py-1 text-[#011E41]/40 hover:border-[#011E41] hover:text-[#011E41] transition-all duration-300">{c}</span>
               ))}
             </div>
           </div>
@@ -209,10 +209,10 @@ function ServiceLayer({ svc, index, scrollYProgress, start, end, total }: { svc:
   return (
     <motion.div style={{ opacity, scale }} className="absolute inset-0 flex items-center justify-center px-6">
       <div className="max-w-3xl">
-        <span className="text-[#C9A84C]/30 font-mono text-sm mb-4 block">0{index + 1}</span>
-        <h4 className="font-sans text-4xl md:text-5xl mb-6">{svc.title}</h4>
-        <p className="text-white/50 leading-relaxed text-lg max-w-lg">{svc.desc}</p>
-        <div className="w-16 h-px bg-[#C9A84C]/30 mt-8" />
+        <span className="text-[#011E41]/20 font-mono text-sm mb-4 block">0{index + 1}</span>
+        <h4 className="font-sans text-4xl md:text-5xl mb-6 text-[#011E41]">{svc.title}</h4>
+        <p className="text-[#011E41]/60 leading-relaxed text-lg max-w-lg">{svc.desc}</p>
+        <div className="w-16 h-px bg-[#011E41]/20 mt-8" />
       </div>
     </motion.div>
   );
@@ -232,20 +232,20 @@ function CoachingSection() {
   ];
 
   return (
-    <section id="coaching" className="border-t border-white/5">
+    <section id="coaching" className="border-t border-[#011E41]/10">
       {/* Intro */}
-      <div className="py-32 px-6">
+      <div className="py-32 px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           <Reveal><p className="text-[#C9A84C] text-xs tracking-[0.4em] uppercase mb-6">Coaching</p></Reveal>
-          <Reveal delay={0.1}><h2 className="font-sans text-5xl md:text-7xl leading-[0.95]">Change subconscious</h2></Reveal>
-          <Reveal delay={0.15}><h2 className="font-sans text-5xl md:text-7xl leading-[0.95] text-[#C9A84C] italic">beliefs that are</h2></Reveal>
-          <Reveal delay={0.2}><h2 className="font-sans text-5xl md:text-7xl leading-[0.95] mb-10">self-limiting</h2></Reveal>
-          <Reveal delay={0.3}><p className="text-white/50 text-lg leading-relaxed max-w-2xl">Sun Street provides personal life coaching to change subconscious beliefs that are self-limiting and self-sabotaging. Transform your inner landscape and unlock your fullest potential.</p></Reveal>
+          <Reveal delay={0.1}><h2 className="font-sans text-5xl md:text-7xl leading-[0.95] text-[#011E41]">Change subconscious</h2></Reveal>
+          <Reveal delay={0.15}><h2 className="font-sans text-5xl md:text-7xl leading-[0.95] text-[#011E41] italic">beliefs that are</h2></Reveal>
+          <Reveal delay={0.2}><h2 className="font-sans text-5xl md:text-7xl leading-[0.95] mb-10 text-[#011E41]">self-limiting</h2></Reveal>
+          <Reveal delay={0.3}><p className="text-[#011E41]/60 text-lg leading-relaxed max-w-2xl">Sun Street provides personal life coaching to change subconscious beliefs that are self-limiting and self-sabotaging. Transform your inner landscape and unlock your fullest potential.</p></Reveal>
         </div>
       </div>
 
       {/* Sticky scroll services */}
-      <div ref={containerRef} className="relative" style={{ height: `${services.length * 100}vh` }}>
+      <div ref={containerRef} className="relative bg-[#EFEBE4]" style={{ height: `${services.length * 100}vh` }}>
         <div className="sticky top-0 h-screen overflow-hidden">
           {services.map((svc, i) => (
             <ServiceLayer key={svc.title} svc={svc} index={i} scrollYProgress={scrollYProgress} start={i / services.length} end={(i + 1) / services.length} total={services.length} />
@@ -254,19 +254,19 @@ function CoachingSection() {
       </div>
 
       {/* Testimonials */}
-      <div className="py-32 px-6">
+      <div className="py-32 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
           <Reveal><p className="text-[#C9A84C] text-xs tracking-[0.4em] uppercase mb-4">Testimonials</p></Reveal>
-          <Reveal delay={0.1}><h3 className="font-sans text-4xl md:text-5xl mb-16">What People <span className="text-[#C9A84C] italic">Say</span></h3></Reveal>
+          <Reveal delay={0.1}><h3 className="font-sans text-4xl md:text-5xl mb-16 text-[#011E41]">What People <span className="italic">Say</span></h3></Reveal>
           <div className="grid md:grid-cols-2 gap-8">
             {testimonials.map((t, i) => (
               <Reveal key={t.name} delay={i * 0.2}>
-                <div className="border border-white/10 p-8 md:p-10 bg-[#1B2A3D]/20 h-full">
-                  <svg className="w-10 h-10 text-[#C9A84C]/20 mb-8" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" /></svg>
-                  <p className="text-white/50 leading-relaxed mb-8 italic text-lg">&ldquo;{t.text}&rdquo;</p>
+                <div className="border-2 border-[#011E41]/15 p-8 md:p-10 bg-[#EFEBE4] h-full rounded-sm">
+                  <svg className="w-10 h-10 text-[#011E41]/10 mb-8" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" /></svg>
+                  <p className="text-[#011E41]/60 leading-relaxed mb-8 italic text-lg">&ldquo;{t.text}&rdquo;</p>
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-full bg-[#C9A84C]/10 flex items-center justify-center"><span className="text-[#C9A84C] text-sm font-sans">{t.name[0]}</span></div>
-                    <p className="text-[#C9A84C] text-sm tracking-wider uppercase">&mdash; {t.name}</p>
+                    <div className="w-10 h-10 rounded-full bg-[#011E41]/10 flex items-center justify-center"><span className="text-[#011E41] text-sm font-sans">{t.name[0]}</span></div>
+                    <p className="text-[#011E41] text-sm tracking-wider uppercase">&mdash; {t.name}</p>
                   </div>
                 </div>
               </Reveal>
@@ -281,17 +281,17 @@ function CoachingSection() {
 /* ─── CONTACT ─── */
 function ContactSection() {
   return (
-    <section id="contact" className="relative py-40 overflow-hidden border-t border-white/5">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#C9A84C]/5 blur-[120px]" />
+    <section id="contact" className="relative py-40 overflow-hidden bg-[#EFEBE4] border-t border-[#011E41]/10">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#011E41]/5 blur-[120px]" />
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
         <Reveal>
           <SunLogo className="w-20 h-20 mx-auto mb-12" />
         </Reveal>
-        <Reveal delay={0.1}><h2 className="font-sans text-6xl md:text-8xl">Let&apos;s Work</h2></Reveal>
-        <Reveal delay={0.2}><h2 className="font-sans text-6xl md:text-8xl text-[#C9A84C] italic">Together</h2></Reveal>
-        <Reveal delay={0.3}><p className="text-white/40 text-lg mt-10 mb-16 max-w-xl mx-auto leading-relaxed">Ready to transform your business, expand into Asia, or unlock your potential? We&apos;d love to hear from you.</p></Reveal>
+        <Reveal delay={0.1}><h2 className="font-sans text-6xl md:text-8xl text-[#011E41]">Let&apos;s Work</h2></Reveal>
+        <Reveal delay={0.2}><h2 className="font-sans text-6xl md:text-8xl text-[#011E41] italic">Together</h2></Reveal>
+        <Reveal delay={0.3}><p className="text-[#011E41]/50 text-lg mt-10 mb-16 max-w-xl mx-auto leading-relaxed">Ready to transform your business, expand into Asia, or unlock your potential? We&apos;d love to hear from you.</p></Reveal>
         <Reveal delay={0.4}>
-          <a href="mailto:hello@sunstreethk.com" className="inline-block border border-[#C9A84C] text-[#C9A84C] px-12 py-4 text-sm tracking-[0.3em] uppercase hover:bg-[#C9A84C] hover:text-[#0F1C2E] transition-all duration-500">
+          <a href="mailto:hello@sunstreethk.com" className="inline-block bg-[#011E41] text-white px-12 py-4 text-sm tracking-[0.3em] uppercase rounded-sm hover:bg-[#0E1D41] transition-all duration-500">
             Get In Touch
           </a>
         </Reveal>
@@ -303,35 +303,45 @@ function ContactSection() {
 /* ─── FOOTER ─── */
 function Footer() {
   return (
-    <footer className="border-t border-white/5">
-      <Marquee speed="slow" className="py-4 border-b border-white/5">
+    <footer className="bg-[#011E41]">
+      <Marquee speed="slow" className="py-4 border-b border-white/10">
         {["Sun Street", "Hong Kong", "Consulting", "Trading", "Coaching", "Strategy", "APAC", "Since 2016"].map((w, i) => (
-          <span key={i} className="mx-6 text-xs text-white/10 tracking-[0.3em] uppercase">{w} <span className="mx-6 text-[#C9A84C]/10">{"\u2726"}</span></span>
+          <span key={i} className="mx-6 text-xs text-white/15 tracking-[0.3em] uppercase">{w} <span className="mx-6 text-white/10">{"\u2726"}</span></span>
         ))}
       </Marquee>
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid md:grid-cols-3 gap-12 items-start">
           <div>
-            <SunLogo className="w-10 h-10 mb-4" />
+            <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 mb-4">
+              <line x1="8" y1="40" x2="56" y2="40" stroke="white" strokeWidth="1.5" />
+              <path d="M18 40C18 32.268 24.268 26 32 26C39.732 26 46 32.268 46 40" stroke="white" strokeWidth="1.5" fill="none" />
+              <line x1="32" y1="18" x2="32" y2="23" stroke="white" strokeWidth="1.5" />
+              <line x1="20.2" y1="22.2" x2="23.4" y2="25.4" stroke="white" strokeWidth="1.5" />
+              <line x1="43.8" y1="22.2" x2="40.6" y2="25.4" stroke="white" strokeWidth="1.5" />
+              <line x1="14" y1="33" x2="19" y2="33" stroke="white" strokeWidth="1.5" />
+              <line x1="45" y1="33" x2="50" y2="33" stroke="white" strokeWidth="1.5" />
+              <line x1="22" y1="44" x2="42" y2="44" stroke="white" strokeWidth="1" opacity="0.5" />
+              <line x1="26" y1="47" x2="38" y2="47" stroke="white" strokeWidth="1" opacity="0.3" />
+            </svg>
             <p className="font-sans text-lg text-white/60">Sun Street</p>
-            <p className="text-xs text-white/20 mt-2">Hong Kong</p>
+            <p className="text-xs text-white/30 mt-2">Hong Kong</p>
           </div>
           <div className="flex flex-col gap-3">
             <p className="text-xs tracking-[0.3em] uppercase text-white/30 mb-2">Navigate</p>
             {["Home", "Consulting", "Trading", "Coaching", "Contact"].map((l) => (
-              <a key={l} href={`#${l.toLowerCase()}`} className="text-sm text-white/30 hover:text-[#C9A84C] transition-colors group">
-                <span className="inline-block w-0 group-hover:w-4 h-px bg-[#C9A84C] transition-all duration-300 mr-0 group-hover:mr-2 align-middle" />{l}
+              <a key={l} href={`#${l.toLowerCase()}`} className="text-sm text-white/40 hover:text-white transition-colors group">
+                <span className="inline-block w-0 group-hover:w-4 h-px bg-white transition-all duration-300 mr-0 group-hover:mr-2 align-middle" />{l}
               </a>
             ))}
           </div>
           <div>
             <p className="text-xs tracking-[0.3em] uppercase text-white/30 mb-4">Contact</p>
-            <a href="mailto:hello@sunstreethk.com" className="text-sm text-white/40 hover:text-[#C9A84C] transition-colors">hello@sunstreethk.com</a>
+            <a href="mailto:hello@sunstreethk.com" className="text-sm text-white/40 hover:text-white transition-colors">hello@sunstreethk.com</a>
           </div>
         </div>
-        <div className="mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-white/20">&copy; 2024 Sun Street / Powered by Zen Lab</p>
-          <p className="text-xs text-white/10">Designed with intention</p>
+        <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-white/30">&copy; 2024 Sun Street / Powered by Zen Lab</p>
+          <p className="text-xs text-white/15">Designed with intention</p>
         </div>
       </div>
     </footer>
@@ -341,7 +351,7 @@ function Footer() {
 /* ─── MAIN ─── */
 export default function Home() {
   return (
-    <main className="bg-[#0F1C2E] text-white font-sans">
+    <main className="bg-white text-[#011E41] font-sans">
       <Navigation />
       <LandingSection />
       <StatsSection />

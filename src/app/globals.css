@@ -3,10 +3,11 @@
 @theme {
   --font-sans: var(--font-sans);
   --color-gold: #C9A84C;
-  --color-navy: #0F1C2E;
-  --color-navy-light: #1B2A3D;
-  --color-dark: #0F1C2E;
-  --color-dark-card: #1B2A3D;
+  --color-navy: #011E41;
+  --color-navy-light: #0E1D41;
+  --color-dark: #FFFFFF;
+  --color-dark-card: #EFEBE4;
+  --color-cream: #EFEBE4;
 }
 
 html {
@@ -58,7 +59,7 @@ html {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(15,28,46,0.95), rgba(15,28,46,0.5));
+  background: linear-gradient(to top, rgba(1,30,65,0.95), rgba(1,30,65,0.5));
   z-index: 1;
   transition: opacity 0.5s ease;
 }
@@ -91,12 +92,12 @@ html {
 .service-number {
   font-size: clamp(3rem, 8vw, 6rem);
   font-weight: 700;
-  color: rgba(201, 168, 76, 0.15);
+  color: rgba(1, 30, 65, 0.1);
   line-height: 1;
   font-family: var(--font-sans);
 }
 
-/* Gold underline on hover */
+/* Navy underline on hover */
 .gold-hover {
   position: relative;
 }
@@ -107,7 +108,7 @@ html {
   left: 0;
   width: 0;
   height: 2px;
-  background: var(--color-gold);
+  background: var(--color-navy);
   transition: width 0.3s ease;
 }
 .gold-hover:hover::after {
@@ -119,9 +120,9 @@ html {
   font-size: 0.875rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.3);
+  color: rgba(1,30,65,0.3);
   transition: color 0.3s ease;
 }
 .client-logo:hover {
-  color: var(--color-gold);
+  color: var(--color-navy);
 }

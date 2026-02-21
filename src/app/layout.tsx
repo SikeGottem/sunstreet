@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import ScrollProgress from "@/components/ScrollProgress";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const ddin = localFont({
   src: [
@@ -27,6 +28,7 @@ export default function RootLayout({
     <html lang="en" className={ddin.variable}>
       <body className="bg-white text-[#011E41] font-sans antialiased">
         <ScrollProgress />
+        <SmoothScroll />
         {children}
       </body>
     </html>

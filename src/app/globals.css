@@ -2,7 +2,12 @@
 
 /* Pillar cards — navy fill on hover */
 .pillar-card {
-  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+  transition: background-color 0.6s ease, border-color 0.6s ease, box-shadow 0.6s ease;
+}
+.pillar-card h3,
+.pillar-card p,
+.pillar-card span {
+  transition: color 0.6s ease;
 }
 .pillar-card:hover {
   background-color: #011E41 !important;

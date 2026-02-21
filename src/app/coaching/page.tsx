@@ -1,6 +1,5 @@
 "use client";
-import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import PageNav from "@/components/PageNav";
 import PageFooter from "@/components/PageFooter";
 import TiltCard from "@/components/TiltCard";
@@ -10,22 +9,6 @@ import TextScramble from "@/components/TextScramble";
 function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
     <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }} className={className}>
-      {children}
-    </motion.div>
-  );
-}
-
-/* ── Service reveal from side / scale ── */
-function ServiceReveal({ children, index, className = "" }: { children: React.ReactNode; index: number; className?: string }) {
-  const dir = index % 2 === 0 ? -1 : 1;
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: dir * 120, scale: 0.85 }}
-      whileInView={{ opacity: 1, x: 0, scale: 1 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.8, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
-      className={className}
-    >
       {children}
     </motion.div>
   );
@@ -41,36 +24,7 @@ function SectionLabel({ number, label }: { number: string; label: string }) {
   );
 }
 
-function ServiceLayer({ svc, index, scrollYProgress, start, end, total }: { svc: { title: string; desc: string }; index: number; scrollYProgress: MotionValue<number>; start: number; end: number; total: number }) {
-  const opacity = useTransform(scrollYProgress, [start, start + 0.05, end - 0.05, end], [0, 1, 1, index === total - 1 ? 1 : 0]);
-  const scale = useTransform(scrollYProgress, [start, start + 0.1, end - 0.05, end], [0.9, 1, 1, index === total - 1 ? 1 : 0.95]);
-  const x = useTransform(scrollYProgress, [start, start + 0.1], [index % 2 === 0 ? -60 : 60, 0]);
-  return (
-    <motion.div style={{ opacity, scale, x }} className="absolute inset-0 flex items-center justify-center px-6">
-      <div className="max-w-3xl relative">
-        <span className="deco-number absolute -left-8 md:-left-20 -top-16 text-[150px] md:text-[220px]">0{index + 1}</span>
-        <div className="relative z-10">
-          <span className="text-[#011E41]/20 font-mono text-sm mb-4 block">0{index + 1}</span>
-          <h4 className="text-gradient-navy font-sans text-4xl md:text-5xl mb-6">{svc.title}</h4>
-          <p className="text-[#011E41]/60 leading-relaxed text-lg max-w-lg">{svc.desc}</p>
-          <div className="w-16 h-px bg-[#011E41]/20 mt-8" />
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
 export default function CoachingPage() {
-  const containerRef = useRef(null);
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const [carouselWidth, setCarouselWidth] = useState(0);
-  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
-
-  useEffect(() => {
-    if (carouselRef.current) {
-      setCarouselWidth(carouselRef.current.scrollWidth - carouselRef.current.offsetWidth);
-    }
-  }, []);
 
   const services = [
     { title: "Life Coaching", desc: "The goal of the Awakening program is to introduce individuals to the freedom of living life in a fully expressed way" },
@@ -143,14 +97,26 @@ export default function CoachingPage() {
         </motion.div>
       </section>
 
-      {/* Sticky scroll services */}
-      <div ref={containerRef} className="relative bg-white" style={{ height: `${services.length * 100}vh` }}>
-        <div className="sticky top-0 h-screen overflow-hidden">
-          {services.map((svc, i) => (
-            <ServiceLayer key={svc.title} svc={svc} index={i} scrollYProgress={scrollYProgress} start={i / services.length} end={(i + 1) / services.length} total={services.length} />
-          ))}
+      {/* Services Grid */}
+      <section className="py-32 px-6 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <Reveal><SectionLabel number="03" label="Services" /></Reveal>
+          <Reveal delay={0.1}><h3 className="text-gradient-navy font-sans text-4xl md:text-5xl mb-16">What We <span className="italic">Offer</span></h3></Reveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {services.map((svc, i) => (
+              <Reveal key={svc.title} delay={i * 0.15}>
+                <TiltCard className="border-2 border-[#011E41]/15 p-8 md:p-10 bg-white h-full card-lift rounded-xl relative overflow-hidden group hover:bg-[#011E41] transition-colors duration-500">
+                  <span className="text-[#C9A84C] font-mono text-sm mb-4 block">0{i + 1}</span>
+                  <h4 className="font-sans text-2xl md:text-3xl mb-4 text-[#011E41] group-hover:text-white transition-colors duration-500">{svc.title}</h4>
+                  <p className="text-[#011E41]/60 leading-relaxed group-hover:text-white/70 transition-colors duration-500">{svc.desc}</p>
+                  <div className="w-12 h-px bg-[#011E41]/20 group-hover:bg-white/30 mt-6 transition-colors duration-500" />
+                </TiltCard>
+              </Reveal>
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
 
       {/* Testimonials — Draggable Carousel */}
       <section className="py-32 px-6 bg-white overflow-hidden">
@@ -159,10 +125,10 @@ export default function CoachingPage() {
           <Reveal delay={0.1}><h3 className="text-gradient-navy font-sans text-4xl md:text-5xl mb-16">What People <span className="italic">Say</span></h3></Reveal>
 
           {/* Carousel */}
-          <motion.div ref={carouselRef} className="cursor-grab active:cursor-grabbing overflow-hidden">
+          <motion.div className="cursor-grab active:cursor-grabbing overflow-hidden">
             <motion.div
               drag="x"
-              dragConstraints={{ right: 0, left: -carouselWidth || -400 }}
+              dragConstraints={{ right: 0, left: -400 }}
               dragElastic={0.1}
               className="flex gap-8"
             >

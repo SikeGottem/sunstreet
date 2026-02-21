@@ -101,7 +101,7 @@ export default function PageFooter() {
       <div className="h-px w-full" style={{ background: "linear-gradient(90deg, transparent, rgba(1,30,65,0.15), transparent)" }} />
 
       {/* Footer */}
-      <footer className="bg-[#011E41]">
+      <footer className="border-t-2 border-[#C9A84C] bg-[#011E41]">
         <Marquee speed="slow" className="py-4 border-b border-white/10">
           {["Sun Street", "Hong Kong", "Consulting", "Trading", "Coaching", "Strategy", "APAC", "Since 2016"].map((w, i) => (
             <span key={i} className="mx-6 text-xs text-white/15 tracking-[0.3em] uppercase">{w} <span className="mx-6 text-white/10">{"\u2726"}</span></span>
@@ -129,19 +129,12 @@ export default function PageFooter() {
             <div className="flex flex-col gap-3">
               <Reveal><p className="text-xs tracking-[0.3em] uppercase text-white/30 mb-2">Navigate</p></Reveal>
               {[
-                { label: "Home", href: "/" },
                 { label: "Consulting", href: "/consulting" },
                 { label: "Trading", href: "/trading" },
                 { label: "Coaching", href: "/coaching" },
               ].map((l, i) => (
                 <FooterLink key={l.label} href={l.href} label={l.label} delay={0.1 * (i + 1)} />
               ))}
-              <Reveal delay={0.5}>
-                <a href="mailto:hello@sunstreethk.com" className="relative text-sm text-white/40 hover:text-white transition-colors duration-300 inline-block group">
-                  Contact
-                  <span className="absolute left-0 -bottom-0.5 h-px w-full bg-white origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out" />
-                </a>
-              </Reveal>
             </div>
             <Reveal delay={0.2}>
               <div>

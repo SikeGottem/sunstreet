@@ -1,6 +1,6 @@
 "use client";
 import { useRef } from "react";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import PageNav from "@/components/PageNav";
 import PageFooter from "@/components/PageFooter";
 import CounterNumber from "@/components/CounterNumber";
@@ -26,36 +26,18 @@ function SectionLabel({ number, label }: { number: string; label: string }) {
   );
 }
 
-/* ── Service item with fade-in tied to scroll ── */
+/* ── Service item ── */
 function ServiceItem({ svc, index }: { svc: { num: string; title: string; desc: string }; index: number }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, x: -30 }}
-      animate={isInView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.7, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
-      className="relative pl-10 pb-12 last:pb-0"
-    >
-      {/* Vertical line */}
-      <div className="absolute left-[7px] top-3 bottom-0 w-px bg-[#011E41]/10" />
-      {/* Dot */}
-      <motion.div
-        className="absolute left-0 top-[6px] w-[15px] h-[15px] rounded-full border-2 border-[#C9A84C] bg-white z-10"
-        initial={{ scale: 0 }}
-        animate={isInView ? { scale: 1 } : {}}
-        transition={{ duration: 0.4, delay: index * 0.15 + 0.2 }}
-      />
-      <TiltCard className="border-2 border-[#011E41]/15 p-8 bg-white group card-lift hover:bg-[#011E41] hover:border-[#011E41] rounded-xl relative overflow-hidden transition-colors duration-300">
+    <Reveal delay={index * 0.1}>
+      <TiltCard className="border-2 border-[#011E41]/15 p-8 bg-white h-full group card-lift hover:bg-[#011E41] hover:border-[#011E41] rounded-xl relative overflow-hidden transition-colors duration-300">
         <span className="text-[#C9A84C]/50 font-mono text-sm group-hover:text-white/30 transition-colors duration-300">{svc.num}</span>
         <h4 className="font-sans text-2xl mt-4 mb-4 text-[#011E41] group-hover:text-white transition-colors duration-300">{svc.title}</h4>
         <p className="text-[#011E41]/50 text-sm leading-relaxed group-hover:text-white/60 transition-colors duration-300">{svc.desc}</p>
         <div className="w-0 group-hover:w-12 h-px bg-white/50 mt-6 transition-all duration-700" />
         <div className="absolute bottom-4 left-4 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 text-white/40">→</div>
       </TiltCard>
-    </motion.div>
+    </Reveal>
   );
 }
 
@@ -170,7 +152,7 @@ export default function ConsultingPage() {
       <section className="py-24 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
           <Reveal><SectionLabel number="01" label="Services" /></Reveal>
-          <div className="max-w-2xl mt-12">
+          <div className="grid md:grid-cols-3 gap-6 mt-12">
             {services.map((svc, i) => (
               <ServiceItem key={svc.num} svc={svc} index={i} />
             ))}

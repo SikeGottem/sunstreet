@@ -23,7 +23,7 @@ export default function PageNav() {
             <Link
               key={l.href}
               href={l.href}
-              className={`text-xs tracking-[0.3em] uppercase transition-colors ${
+              className={`text-xs tracking-[0.3em] uppercase transition-colors hover-underline ${
                 pathname === l.href
                   ? "text-[#011E41] font-bold"
                   : "text-[#011E41]/40 hover:text-[#011E41]"

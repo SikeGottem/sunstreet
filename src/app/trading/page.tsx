@@ -2,6 +2,8 @@
 import { motion } from "framer-motion";
 import PageNav from "@/components/PageNav";
 import PageFooter from "@/components/PageFooter";
+import TiltCard from "@/components/TiltCard";
+import TextScramble from "@/components/TextScramble";
 
 function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
@@ -38,7 +40,7 @@ export default function TradingPage() {
           <Reveal><SectionLabel number="02" label="Trading & Distribution" /></Reveal>
           <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
             <div>
-              <Reveal delay={0.1}><h1 className="text-gradient-navy font-sans text-5xl md:text-7xl leading-[0.95]">Passionate About</h1></Reveal>
+              <Reveal delay={0.1}><h1 className="text-gradient-navy font-sans text-5xl md:text-7xl leading-[0.95]"><TextScramble text="Passionate About" /></h1></Reveal>
               <Reveal delay={0.15}><h1 className="text-gradient-navy font-sans text-5xl md:text-7xl leading-[0.95] italic mb-10">Brands for Asia</h1></Reveal>
             </div>
             <div className="md:mt-12">
@@ -55,12 +57,13 @@ export default function TradingPage() {
           <div className="grid md:grid-cols-3 gap-6">
             {services.map((svc, i) => (
               <Reveal key={svc.num} delay={i * 0.1}>
-                <div className="border-2 border-[#011E41]/15 p-8 bg-white h-full group card-lift hover:bg-[#011E41] hover:border-[#011E41] rounded-sm">
+                <TiltCard className="border-2 border-[#011E41]/15 p-8 bg-white h-full group card-lift hover:bg-[#011E41] hover:border-[#011E41] rounded-xl relative overflow-hidden">
                   <span className="text-[#C9A84C]/50 font-mono text-sm group-hover:text-white/30 transition-colors duration-300">{svc.num}</span>
                   <h4 className="font-sans text-2xl mt-4 mb-4 text-[#011E41] group-hover:text-white transition-colors duration-300">{svc.title}</h4>
                   <p className="text-[#011E41]/50 text-sm leading-relaxed group-hover:text-white/60 transition-colors duration-300">{svc.desc}</p>
                   <div className="w-0 group-hover:w-12 h-px bg-white/50 mt-6 transition-all duration-700" />
-                </div>
+                  <div className="absolute bottom-4 left-4 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 text-white/40">→</div>
+                </TiltCard>
               </Reveal>
             ))}
           </div>
@@ -72,7 +75,7 @@ export default function TradingPage() {
       <section className="py-24 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
           <Reveal>
-            <div className="border-2 border-[#011E41]/15 p-8 md:p-16 bg-white rounded-sm card-lift relative overflow-hidden">
+            <TiltCard className="border-2 border-[#011E41]/15 p-8 md:p-16 bg-white rounded-xl card-lift relative overflow-hidden">
               <span className="deco-number absolute -right-8 -top-8 text-[200px] md:text-[280px] leading-none select-none">UD</span>
               <div className="relative z-10">
                 <SectionLabel number="02.1" label="Featured Brand" />
@@ -84,7 +87,7 @@ export default function TradingPage() {
                   ))}
                 </div>
               </div>
-            </div>
+            </TiltCard>
           </Reveal>
         </div>
       </section>

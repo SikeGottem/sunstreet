@@ -4,6 +4,9 @@ import Link from "next/link";
 import SunLogo from "@/components/SunLogo";
 import Marquee from "@/components/Marquee";
 import CounterNumber from "@/components/CounterNumber";
+import RotatingWords from "@/components/RotatingWords";
+import TiltCard from "@/components/TiltCard";
+import MagneticButton from "@/components/MagneticButton";
 
 function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
@@ -62,6 +65,16 @@ function LandingHero() {
           Established in 2016, Sun Street was founded by an ex-management consultant with over 15 years experience in APAC.
         </motion.p>
 
+        {/* Rotating words */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8, duration: 0.8 }}
+          className="text-[#011E41]/50 text-sm mb-10"
+        >
+          We help with <RotatingWords words={["Strategy", "Growth", "Brands", "Coaching"]} className="text-[#011E41]" />
+        </motion.p>
+
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
           {cards.map((card, i) => (
@@ -70,23 +83,25 @@ function LandingHero() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 + i * 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                className="group relative border border-[#011E41]/10 bg-white p-8 text-center rounded-xl h-full overflow-hidden transition-all duration-500 hover:shadow-xl hover:-translate-y-1"
               >
-                <span className="text-[#011E41]/25 text-2xl block mb-4 transition-colors duration-300 group-hover:text-[#011E41]/50">{card.icon}</span>
+              <TiltCard className="group relative border-2 border-[#011E41]/10 bg-white p-8 text-center rounded-xl h-full overflow-hidden transition-all duration-500 hover:shadow-xl hover:bg-[#011E41] hover:border-[#011E41]">
+
+                <span className="text-[#011E41]/25 text-2xl block mb-4 transition-colors duration-300 group-hover:text-white/50">{card.icon}</span>
 
                 {/* Title with animated underline */}
-                <h3 className="relative inline-block font-sans text-xl tracking-wide mb-3 text-[#011E41] transition-colors duration-300">
+                <h3 className="relative inline-block font-sans text-xl tracking-wide mb-3 text-[#011E41] transition-colors duration-300 group-hover:text-white">
                   {card.title}
-                  <span className="absolute bottom-0 left-0 w-0 h-px bg-[#011E41] transition-all duration-500 group-hover:w-full" />
+                  <span className="absolute bottom-0 left-0 w-0 h-px bg-[#011E41] transition-all duration-500 group-hover:w-full group-hover:bg-white" />
                 </h3>
 
-                <p className="text-[#011E41]/45 text-sm leading-relaxed">{card.desc}</p>
+                <p className="text-[#011E41]/45 text-sm leading-relaxed transition-colors duration-300 group-hover:text-white/70">{card.desc}</p>
 
                 {/* Hover gradient + arrow */}
-                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#011E41]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="absolute bottom-4 right-4 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 text-[#011E41]/40 text-lg">
+                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#011E41]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 group-hover:from-white/5" />
+                <div className="absolute bottom-4 right-4 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 text-[#011E41]/40 group-hover:text-white/60 text-lg">
                   →
                 </div>
+              </TiltCard>
               </motion.div>
             </Link>
           ))}
@@ -139,9 +154,9 @@ function ContactCTA() {
           <Reveal delay={0.2}><h2 className="text-gradient-navy font-sans text-6xl md:text-8xl italic">Together</h2></Reveal>
           <Reveal delay={0.3}><p className="text-[#011E41]/50 text-lg mt-10 mb-16 max-w-xl mx-auto leading-relaxed">Ready to transform your business, expand into Asia, or unlock your potential? We&apos;d love to hear from you.</p></Reveal>
           <Reveal delay={0.4}>
-            <a href="mailto:hello@sunstreethk.com" className="inline-block bg-[#011E41] text-white px-12 py-4 text-sm tracking-[0.3em] uppercase rounded-sm hover:bg-[#0E1D41] hover:shadow-lg hover:-translate-y-0.5 transition-all duration-500">
+            <MagneticButton href="mailto:hello@sunstreethk.com" className="!bg-[#011E41] !text-white !px-12 !py-4 !text-sm !tracking-[0.3em] uppercase !rounded-sm !border-0 hover:!bg-[#0E1D41] hover:!shadow-lg">
               Get In Touch
-            </a>
+            </MagneticButton>
           </Reveal>
         </div>
       </section>

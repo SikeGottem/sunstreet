@@ -64,10 +64,29 @@ html {
   box-shadow: 0 20px 40px rgba(1, 30, 65, 0.08);
 }
 
+/* ─── HOVER UNDERLINE ─── */
+.hover-underline {
+  position: relative;
+}
+.hover-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: #011E41;
+  transition: width 0.3s ease;
+}
+.hover-underline:hover::after {
+  width: 100%;
+}
+
 /* ─── SECTION DIVIDER ─── */
 .section-divider {
   height: 1px;
-  background: rgba(1, 30, 65, 0.1);
+  background: linear-gradient(90deg, transparent, #011E41 20%, #011E41 80%, transparent);
+  opacity: 0.15;
 }
 
 /* ─── OVERSIZED DECORATIVE NUMBER ─── */

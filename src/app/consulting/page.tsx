@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import PageNav from "@/components/PageNav";
 import PageFooter from "@/components/PageFooter";
 import CounterNumber from "@/components/CounterNumber";
+import TiltCard from "@/components/TiltCard";
+import TextScramble from "@/components/TextScramble";
 
 function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
@@ -48,7 +50,7 @@ export default function ConsultingPage() {
           <Reveal><SectionLabel number="01" label="Consulting" /></Reveal>
           <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
             <div>
-              <Reveal delay={0.1}><h1 className="text-gradient-navy font-sans text-5xl md:text-7xl leading-[0.95] mb-2">With over</h1></Reveal>
+              <Reveal delay={0.1}><h1 className="text-gradient-navy font-sans text-5xl md:text-7xl leading-[0.95] mb-2"><TextScramble text="With over" /></h1></Reveal>
               <Reveal delay={0.2}><h1 className="text-gradient-navy font-sans text-5xl md:text-7xl leading-[0.95] italic">15 years</h1></Reveal>
               <Reveal delay={0.25}><h1 className="text-gradient-navy font-sans text-5xl md:text-7xl leading-[0.95] mb-10">experience</h1></Reveal>
             </div>
@@ -88,12 +90,13 @@ export default function ConsultingPage() {
           <div className="grid md:grid-cols-3 gap-6">
             {services.map((svc, i) => (
               <Reveal key={svc.num} delay={i * 0.1}>
-                <div className="border-2 border-[#011E41]/15 p-8 bg-white h-full group card-lift hover:bg-[#011E41] hover:border-[#011E41] rounded-xl">
+                <TiltCard className="border-2 border-[#011E41]/15 p-8 bg-white h-full group card-lift hover:bg-[#011E41] hover:border-[#011E41] rounded-xl relative overflow-hidden">
                   <span className="text-[#C9A84C]/50 font-mono text-sm group-hover:text-white/30 transition-colors duration-300">{svc.num}</span>
                   <h4 className="font-sans text-2xl mt-4 mb-4 text-[#011E41] group-hover:text-white transition-colors duration-300">{svc.title}</h4>
                   <p className="text-[#011E41]/50 text-sm leading-relaxed group-hover:text-white/60 transition-colors duration-300">{svc.desc}</p>
                   <div className="w-0 group-hover:w-12 h-px bg-white/50 mt-6 transition-all duration-700" />
-                </div>
+                  <div className="absolute bottom-4 left-4 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 text-white/40">→</div>
+                </TiltCard>
               </Reveal>
             ))}
           </div>
@@ -109,10 +112,11 @@ export default function ConsultingPage() {
           <div className="grid md:grid-cols-2 gap-6">
             {caseStudies.map((cs, i) => (
               <Reveal key={cs.title} delay={i * 0.15}>
-                <div className="border-2 border-[#011E41]/15 p-8 md:p-10 bg-white h-full card-lift rounded-xl">
+                <TiltCard className="border-2 border-[#011E41]/15 p-8 md:p-10 bg-white h-full card-lift rounded-xl relative overflow-hidden group">
                   <span className="text-[#C9A84C] text-xs tracking-[0.3em] uppercase">{cs.title}</span>
                   <p className="text-[#011E41]/60 mt-4 leading-relaxed">{cs.desc}</p>
-                </div>
+                  <div className="absolute bottom-4 left-4 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 text-[#011E41]/30">→</div>
+                </TiltCard>
               </Reveal>
             ))}
           </div>

@@ -27,7 +27,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${playfair.variable}`}>
-      <body className="bg-[#0a0a12] text-white font-sans antialiased">
+      <body className="bg-[#0F1C2E] text-white font-sans antialiased">
         {children}
       </body>
     </html>

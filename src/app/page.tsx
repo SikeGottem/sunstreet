@@ -28,8 +28,8 @@ function HeroSection() {
         <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" poster="https://images.unsplash.com/photo-1536599018102-9f803c140fc1?w=1920&q=80">
           <source src="https://player.vimeo.com/external/371837743.sd.mp4?s=bea46f0b09db1ff0e14eaa07ec2ffbd1d9e5b8a3&profile_id=164&oauth2_token_id=57447761" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-navy/75" />
-        <div className="absolute inset-0 bg-gradient-to-b from-navy/60 via-transparent to-navy" />
+        <div className="absolute inset-0 bg-[#0F1C2E]/75" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0F1C2E]/60 via-transparent to-[#0F1C2E]" />
         <div className="absolute inset-0 bg-gradient-to-tr from-gold/5 via-transparent to-blue-900/10" />
       </motion.div>
 
@@ -102,7 +102,7 @@ function BentoSection() {
           <Card3D className="md:col-span-7 md:row-span-2 group relative">
             <a href="#consulting" className="block w-full h-full relative overflow-hidden">
               <div className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-110" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1449034446853-66c86144b0ad?w=1200&q=80)" }} />
-              <div className="absolute inset-0 bg-navy/70 group-hover:bg-navy/50 transition-all duration-700" />
+              <div className="absolute inset-0 bg-[#0F1C2E]/70 group-hover:bg-[#0F1C2E]/50 transition-all duration-700" />
               <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-end">
                 <span className="text-gold/60 text-xs tracking-[0.3em] uppercase mb-3">01</span>
                 <h3 className="font-serif text-4xl md:text-5xl mb-3 group-hover:text-gold transition-colors duration-500">Consulting</h3>
@@ -115,7 +115,7 @@ function BentoSection() {
           <Card3D className="md:col-span-5 md:row-span-3 group relative">
             <a href="#trading" className="block w-full h-full relative overflow-hidden">
               <div className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-110" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1513622790541-eaa84d356909?w=800&q=80)" }} />
-              <div className="absolute inset-0 bg-navy/70 group-hover:bg-navy/50 transition-all duration-700" />
+              <div className="absolute inset-0 bg-[#0F1C2E]/70 group-hover:bg-[#0F1C2E]/50 transition-all duration-700" />
               <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-end">
                 <span className="text-gold/60 text-xs tracking-[0.3em] uppercase mb-3">02</span>
                 <h3 className="font-serif text-4xl md:text-5xl mb-3 group-hover:text-gold transition-colors duration-500">Trading</h3>
@@ -128,7 +128,7 @@ function BentoSection() {
           <Card3D className="md:col-span-7 md:row-span-1 group relative">
             <a href="#coaching" className="block w-full h-full relative overflow-hidden">
               <div className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-110" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=1200&q=80)" }} />
-              <div className="absolute inset-0 bg-navy/70 group-hover:bg-navy/50 transition-all duration-700" />
+              <div className="absolute inset-0 bg-[#0F1C2E]/70 group-hover:bg-[#0F1C2E]/50 transition-all duration-700" />
               <div className="absolute inset-0 p-8 flex items-center">
                 <div>
                   <span className="text-gold/60 text-xs tracking-[0.3em] uppercase mb-2 block">03</span>
@@ -154,9 +154,9 @@ function StatsSection() {
   ];
   return (
     <section className="relative py-24 overflow-hidden">
-      <div className="absolute inset-0 bg-navy-dark" />
-      <div className="absolute top-0 left-0 right-0 h-24 bg-navy" style={{ clipPath: "polygon(0 0, 100% 0, 100% 0%, 0 100%)" }} />
-      <div className="absolute bottom-0 left-0 right-0 h-24 bg-navy" style={{ clipPath: "polygon(0 100%, 100% 0%, 100% 100%, 0 100%)" }} />
+      <div className="absolute inset-0 bg-[#0F1C2E]" />
+      <div className="absolute top-0 left-0 right-0 h-24 bg-[#0F1C2E]" style={{ clipPath: "polygon(0 0, 100% 0, 100% 0%, 0 100%)" }} />
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-[#0F1C2E]" style={{ clipPath: "polygon(0 100%, 100% 0%, 100% 100%, 0 100%)" }} />
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4">
           {stats.map((stat, i) => (
@@ -182,7 +182,7 @@ function ConsultingSection() {
       <div className="relative min-h-screen flex items-center overflow-hidden">
         <motion.div className="absolute inset-0" initial={{ scale: 1.1 }} whileInView={{ scale: 1 }} viewport={{ once: true }} transition={{ duration: 1.5, ease: "easeOut" }}>
           <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1449034446853-66c86144b0ad?w=1920&q=80)" }} />
-          <div className="absolute inset-0 bg-navy/80" />
+          <div className="absolute inset-0 bg-[#0F1C2E]/80" />
         </motion.div>
         <div className="relative z-10 max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center py-32">
           <div>
@@ -199,9 +199,9 @@ function ConsultingSection() {
             <div className="relative">
               <div className="aspect-[3/4] relative overflow-hidden">
                 <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800&q=80)" }} />
-                <div className="absolute inset-0 bg-navy/30" />
+                <div className="absolute inset-0 bg-[#0F1C2E]/30" />
               </div>
-              <div className="absolute -bottom-8 -left-8 w-48 h-48 border border-gold/30 flex items-center justify-center bg-navy/90">
+              <div className="absolute -bottom-8 -left-8 w-48 h-48 border border-gold/30 flex items-center justify-center bg-[#0F1C2E]/90">
                 <div className="text-center">
                   <span className="font-serif text-4xl text-gold">15+</span>
                   <p className="text-[10px] tracking-[0.3em] uppercase text-white/40 mt-1">Years APAC</p>
@@ -213,7 +213,7 @@ function ConsultingSection() {
       </div>
 
       <HorizontalScroll panels={4}>
-        <div className="w-screen h-screen flex-shrink-0 flex items-center justify-center bg-navy-dark px-6">
+        <div className="w-screen h-screen flex-shrink-0 flex items-center justify-center bg-[#0F1C2E] px-6">
           <div className="text-center">
             <p className="text-gold text-xs tracking-[0.4em] uppercase mb-6">Our Services</p>
             <h3 className="font-serif text-5xl md:text-7xl">What We <span className="text-gold italic">Deliver</span></h3>
@@ -225,7 +225,7 @@ function ConsultingSection() {
           { num: "02", title: "Process\nImprovement", desc: "Detailed analysis and implementation of new and existing business processes with the aim of achieving optimal efficiency and effectiveness", image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80" },
           { num: "03", title: "Programme & Change\nManagement", desc: "Integration, implementation and risk mitigation for any organisational change programme", image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&q=80" },
         ].map((svc) => (
-          <div key={svc.num} className="w-screen h-screen flex-shrink-0 flex items-center bg-navy-dark">
+          <div key={svc.num} className="w-screen h-screen flex-shrink-0 flex items-center bg-[#0F1C2E]">
             <div className="grid md:grid-cols-2 h-full w-full">
               <div className="flex flex-col justify-center px-8 md:px-20">
                 <span className="text-gold/30 font-mono text-sm mb-6">{svc.num}</span>
@@ -235,14 +235,14 @@ function ConsultingSection() {
               </div>
               <div className="relative hidden md:block">
                 <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${svc.image})` }} />
-                <div className="absolute inset-0 bg-navy/50" />
+                <div className="absolute inset-0 bg-[#0F1C2E]/50" />
               </div>
             </div>
           </div>
         ))}
       </HorizontalScroll>
 
-      <div className="bg-navy py-32 px-6">
+      <div className="bg-[#0F1C2E] py-32 px-6">
         <div className="max-w-7xl mx-auto">
           <AnimatedSection><p className="text-gold text-xs tracking-[0.4em] uppercase mb-4">Case Studies</p></AnimatedSection>
           <RevealLine><h3 className="font-serif text-4xl md:text-5xl mb-16">Programme & <span className="text-gold italic">Change Management</span></h3></RevealLine>
@@ -289,7 +289,7 @@ function TradingSection() {
       <div className="relative h-[70vh] overflow-hidden">
         <motion.div style={{ scale: imgScale, opacity: imgOpacity }} className="absolute inset-0">
           <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1513622790541-eaa84d356909?w=1920&q=80)" }} />
-          <div className="absolute inset-0 bg-navy/60" />
+          <div className="absolute inset-0 bg-[#0F1C2E]/60" />
         </motion.div>
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center px-6">
@@ -300,7 +300,7 @@ function TradingSection() {
         </div>
       </div>
 
-      <div className="bg-navy-dark py-32 px-6">
+      <div className="bg-[#0F1C2E] py-32 px-6">
         <div className="max-w-7xl mx-auto">
           <AnimatedSection><p className="text-white/50 text-lg leading-relaxed max-w-2xl mb-16">At Sun Street, we are passionate about finding new or established brands for Asia. We connect global brands with the opportunities and networks they need to thrive in Asian markets.</p></AnimatedSection>
           <div className="grid md:grid-cols-3 gap-6 mb-32">
@@ -337,7 +337,7 @@ function TradingSection() {
                 </div>
                 <div className="md:col-span-2 relative min-h-[200px]">
                   <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1503951914875-452f0297d600?w=800&q=80)" }} />
-                  <div className="absolute inset-0 bg-navy/30" />
+                  <div className="absolute inset-0 bg-[#0F1C2E]/30" />
                 </div>
               </div>
             </div>
@@ -363,7 +363,7 @@ function ServiceLayer({ svc, index, scrollYProgress, start, end, total }: { svc:
         </div>
         <div className="relative hidden md:block">
           <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${svc.image})` }} />
-          <div className="absolute inset-0 bg-navy/40" />
+          <div className="absolute inset-0 bg-[#0F1C2E]/40" />
         </div>
       </div>
     </motion.div>
@@ -384,7 +384,7 @@ function CoachingSection() {
       <div className="relative min-h-screen flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-cover bg-center opacity-20" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=1920&q=80)" }} />
-          <div className="absolute inset-0 bg-gradient-to-b from-navy-dark via-navy to-navy" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0F1C2E]-dark via-navy to-[#0F1C2E]" />
         </div>
         <div className="relative z-10 max-w-5xl mx-auto px-6 py-32">
           <AnimatedSection><p className="text-gold text-xs tracking-[0.4em] uppercase mb-6">Coaching</p></AnimatedSection>
@@ -403,7 +403,7 @@ function CoachingSection() {
         </div>
       </div>
 
-      <div className="bg-navy py-32 px-6">
+      <div className="bg-[#0F1C2E] py-32 px-6">
         <div className="max-w-7xl mx-auto">
           <AnimatedSection><p className="text-gold text-xs tracking-[0.4em] uppercase mb-4">Testimonials</p></AnimatedSection>
           <RevealLine><h3 className="font-serif text-4xl md:text-5xl mb-16">What People <span className="text-gold italic">Say</span></h3></RevealLine>
@@ -436,7 +436,7 @@ function CoachingSection() {
 function ContactSection() {
   return (
     <section id="contact" className="relative py-40 overflow-hidden">
-      <div className="absolute inset-0 bg-navy-dark" />
+      <div className="absolute inset-0 bg-[#0F1C2E]" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gold/5 blur-[120px]" />
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
         <motion.div initial={{ opacity: 0, scale: 0.5, rotate: -90 }} whileInView={{ opacity: 1, scale: 1, rotate: 0 }} viewport={{ once: true }} transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}>
@@ -501,7 +501,7 @@ export default function Home() {
       <BentoSection />
       <StatsSection />
       <ConsultingSection />
-      <MarqueeDivider words={["Distribution", "Brands", "Market Entry", "Retail", "Asia", "Partnership"]} className="bg-navy-dark" />
+      <MarqueeDivider words={["Distribution", "Brands", "Market Entry", "Retail", "Asia", "Partnership"]} className="bg-[#0F1C2E]" />
       <TradingSection />
       <CoachingSection />
       <ContactSection />

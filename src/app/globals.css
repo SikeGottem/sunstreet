@@ -4,8 +4,10 @@
   --font-sans: var(--font-sans);
   --font-serif: var(--font-serif);
   --color-gold: #C9A84C;
-  --color-dark: #0a0a12;
-  --color-dark-card: #111120;
+  --color-navy: #0F1C2E;
+  --color-navy-light: #1B2A3D;
+  --color-dark: #0F1C2E;
+  --color-dark-card: #1B2A3D;
 }
 
 html {
@@ -57,7 +59,7 @@ html {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(10,10,18,0.95), rgba(10,10,18,0.5));
+  background: linear-gradient(to top, rgba(15,28,46,0.95), rgba(15,28,46,0.5));
   z-index: 1;
   transition: opacity 0.5s ease;
 }

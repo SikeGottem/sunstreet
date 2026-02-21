@@ -169,45 +169,7 @@ html {
   transform: translateY(0);
 }
 
-/* Pillar cards */
-.pillar-card {
-  position: relative;
-  overflow: hidden;
-  transition: flex 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.pillar-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(1,30,65,0.95), rgba(1,30,65,0.5));
-  z-index: 1;
-  transition: opacity 0.5s ease;
-}
-
-.pillar-card:hover::before {
-  opacity: 0.7;
-}
-
-.pillar-card .card-bg {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  transform: scale(1.05);
-}
-
-.pillar-card:hover .card-bg {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.pillar-card .card-content {
-  position: relative;
-  z-index: 2;
-}
+/* (old pillar-card overlay removed — replaced by top-level pillar-card rules) */
 
 /* Service number */
 .service-number {

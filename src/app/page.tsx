@@ -76,10 +76,11 @@ function LandingHero() {
         </motion.p>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
           {cards.map((card, i) => (
-            <Link key={card.href} href={card.href}>
+            <Link key={card.href} href={card.href} className="block h-full">
               <motion.div
+                className="h-full"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 + i * 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}

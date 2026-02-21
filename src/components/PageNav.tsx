@@ -16,7 +16,7 @@ export default function PageNav() {
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-3 group">
           <SunLogo className="w-8 h-8" />
-          <span className="font-sans text-sm tracking-[0.2em] uppercase text-[#011E41]/60 group-hover:text-[#011E41] transition-colors">Sun Street</span>
+          <span className="font-sans text-sm tracking-[0.35em] uppercase text-[#011E41] group-hover:text-[#011E41]/70 transition-colors">SUN STREET</span>
         </Link>
         <div className="flex items-center gap-8">
           {links.map((l) => (

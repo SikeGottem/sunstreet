@@ -1,98 +1,126 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-inter), system-ui, sans-serif;
-  --font-serif: var(--font-playfair), Georgia, serif;
-  --color-navy: #0F1C2E;
-  --color-navy-light: #162740;
-  --color-navy-dark: #0A1320;
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
   --color-gold: #C9A84C;
-  --color-gold-light: #D4BA6A;
-  --color-gold-dark: #A8893D;
+  --color-dark: #0a0a12;
+  --color-dark-card: #111120;
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-/* Grain overlay */
-.grain::after {
-  content: "";
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  right: -50%;
-  bottom: -50%;
-  width: 200%;
-  height: 200%;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 100;
-  opacity: 0.5;
+/* Marquee animation — pure CSS */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-/* Custom cursor */
-.cursor-dot {
-  width: 8px;
-  height: 8px;
-  background: #C9A84C;
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  transition: transform 0.1s ease;
-  mix-blend-mode: difference;
-}
-
-.cursor-ring {
-  width: 40px;
-  height: 40px;
-  border: 1.5px solid rgba(201, 168, 76, 0.5);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  transition: all 0.15s ease-out;
-  mix-blend-mode: difference;
-}
-
-.cursor-ring.hovering {
-  width: 64px;
-  height: 64px;
-  border-color: rgba(201, 168, 76, 0.8);
-  background: rgba(201, 168, 76, 0.05);
-}
-
-/* Selection */
-::selection {
-  background: rgba(201, 168, 76, 0.3);
-  color: white;
-}
-
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #0F1C2E;
-}
-::-webkit-scrollbar-thumb {
-  background: #C9A84C;
-  border-radius: 3px;
-}
-
-/* Horizontal scroll */
-.horizontal-scroll {
+.marquee-track {
   display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+  width: max-content;
+  animation: marquee 20s linear infinite;
 }
-.horizontal-scroll::-webkit-scrollbar {
-  display: none;
+
+/* Scroll indicator pulse */
+@keyframes pulse-down {
+  0%, 100% { opacity: 0.4; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(8px); }
 }
-.horizontal-scroll > * {
-  scroll-snap-align: start;
-  flex-shrink: 0;
+
+.scroll-indicator {
+  animation: pulse-down 2s ease-in-out infinite;
+}
+
+/* Section reveal — CSS only, enhanced by IntersectionObserver adding class */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Pillar cards */
+.pillar-card {
+  position: relative;
+  overflow: hidden;
+  transition: flex 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pillar-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10,10,18,0.95), rgba(10,10,18,0.5));
+  z-index: 1;
+  transition: opacity 0.5s ease;
+}
+
+.pillar-card:hover::before {
+  opacity: 0.7;
+}
+
+.pillar-card .card-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: scale(1.05);
+}
+
+.pillar-card:hover .card-bg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.pillar-card .card-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Service number */
+.service-number {
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 700;
+  color: rgba(201, 168, 76, 0.15);
+  line-height: 1;
+  font-family: var(--font-sans);
+}
+
+/* Gold underline on hover */
+.gold-hover {
+  position: relative;
+}
+.gold-hover::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-gold);
+  transition: width 0.3s ease;
+}
+.gold-hover:hover::after {
+  width: 100%;
+}
+
+/* Client logo text styling */
+.client-logo {
+  font-size: 0.875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  transition: color 0.3s ease;
+}
+.client-logo:hover {
+  color: var(--color-gold);
 }

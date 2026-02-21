@@ -1,23 +1,23 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Space_Grotesk, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
-const playfair = Playfair_Display({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-sans",
   display: "swap",
 });
 
-const inter = Inter({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-serif",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Sun Street — Consulting, Trading & Coaching | Hong Kong",
+  title: "Sun Street — Consulting · Trading · Coaching",
   description:
-    "Sun Street helps organisations develop and implement strategy. Consulting, trading and coaching services based in Hong Kong.",
+    "Sun Street helps organisations develop strategy, distributes brands across Asia, and provides transformative life coaching.",
 };
 
 export default function RootLayout({
@@ -26,8 +26,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${inter.variable}`}>
-      <body className="bg-[#0F1C2E] text-white font-sans antialiased">
+    <html lang="en" className={`${spaceGrotesk.variable} ${playfair.variable}`}>
+      <body className="bg-[#0a0a12] text-white font-sans antialiased">
         {children}
       </body>
     </html>

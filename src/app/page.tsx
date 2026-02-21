@@ -145,23 +145,26 @@ function LandingHero() {
 
 function StatsSection() {
   const stats = [
-    { value: 15, suffix: "+", label: "Years Experience" },
-    { value: 2016, suffix: "", label: "Established" },
-    { value: 8, suffix: "+", label: "Countries" },
-    { value: 3, suffix: "", label: "Core Pillars" },
+    { value: 15, suffix: "+", label: "Years Experience", deco: "15" },
+    { value: 2016, suffix: "", label: "Established", deco: "2016" },
+    { value: 8, suffix: "+", label: "Countries", deco: "08" },
+    { value: 3, suffix: "", label: "Core Pillars", deco: "03" },
   ];
   return (
     <>
       <div className="section-divider" />
-      <section className="py-16 px-6 bg-white">
-        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
+      <section className="py-32 px-6 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
           {stats.map((stat, i) => (
             <Reveal key={stat.label} delay={i * 0.1}>
-              <div className="border-l-2 border-[#C9A84C] pl-5 py-2">
-                <div className="font-sans text-3xl md:text-4xl text-[#011E41] mb-1">
-                  <CounterNumber end={stat.value} suffix={stat.suffix} duration={2 + i * 0.3} />
+              <div className="relative text-center">
+                <span className="deco-number absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[120px] md:text-[180px]">{stat.deco}</span>
+                <div className="relative z-10">
+                  <div className="font-sans text-5xl md:text-7xl text-[#011E41] mb-2">
+                    <CounterNumber end={stat.value} suffix={stat.suffix} duration={2 + i * 0.3} />
+                  </div>
+                  <p className="text-[#011E41]/40 text-xs tracking-[0.3em] uppercase">{stat.label}</p>
                 </div>
-                <p className="text-[#011E41]/40 text-xs tracking-[0.2em] uppercase">{stat.label}</p>
               </div>
             </Reveal>
           ))}

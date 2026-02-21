@@ -97,8 +97,9 @@ export default function CoachingPage() {
         </motion.div>
       </section>
 
+      <div className="section-divider" />
       {/* Services Grid */}
-      <section className="py-32 px-6 bg-white">
+      <section className="py-24 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
           <Reveal><SectionLabel number="03" label="Services" /></Reveal>
           <Reveal delay={0.1}><h3 className="text-gradient-navy font-sans text-4xl md:text-5xl mb-16">What We <span className="italic">Offer</span></h3></Reveal>
@@ -118,8 +119,9 @@ export default function CoachingPage() {
         </div>
       </section>
 
+      <div className="section-divider" />
       {/* Testimonials — Draggable Carousel */}
-      <section className="py-32 px-6 bg-white overflow-hidden">
+      <section className="py-24 px-6 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <Reveal><SectionLabel number="03.1" label="Testimonials" /></Reveal>
           <Reveal delay={0.1}><h3 className="text-gradient-navy font-sans text-4xl md:text-5xl mb-16">What People <span className="italic">Say</span></h3></Reveal>

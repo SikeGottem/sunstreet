@@ -128,8 +128,9 @@ export default function ConsultingPage() {
         </div>
       </section>
 
+      <div className="section-divider" />
       {/* Stats — animated counters (already via CounterNumber) */}
-      <section className="py-20 px-6 bg-white overflow-hidden">
+      <section className="py-24 px-6 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto grid grid-cols-3 gap-8">
           {stats.map((stat, i) => (
             <Reveal key={stat.label} delay={i * 0.1}>

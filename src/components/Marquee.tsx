@@ -1,16 +1,12 @@
 "use client";
 
-export default function Marquee({ text }: { text: string }) {
-  const repeated = `${text} `.repeat(10);
+export default function Marquee({ children, speed = "normal", reverse = false, className = "" }: { children: React.ReactNode; speed?: "slow" | "normal" | "fast"; reverse?: boolean; className?: string }) {
+  const animClass = reverse ? "animate-marquee-reverse" : speed === "slow" ? "animate-marquee-slow" : "animate-marquee";
   return (
-    <div className="overflow-hidden border-y border-white/10 py-4">
-      <div className="marquee-track">
-        <span className="text-sm tracking-[0.3em] uppercase text-white/20 whitespace-nowrap">
-          {repeated}
-        </span>
-        <span className="text-sm tracking-[0.3em] uppercase text-white/20 whitespace-nowrap">
-          {repeated}
-        </span>
+    <div className={`overflow-hidden whitespace-nowrap ${className}`}>
+      <div className={`inline-flex ${animClass}`}>
+        <div className="flex items-center">{children}</div>
+        <div className="flex items-center">{children}</div>
       </div>
     </div>
   );

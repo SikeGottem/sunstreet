@@ -23,6 +23,8 @@ function SectionLabel({ number, label }: { number: string; label: string }) {
   );
 }
 
+const countries = ["Hong Kong", "China", "Indonesia", "Japan", "Singapore", "Thailand", "Korea", "Taiwan"];
+
 export default function TradingPage() {
   const services = [
     { num: "01", title: "Full Service Distribution", desc: "End-to-end brand distribution services from sales, warehousing, fulfilment and after-sales support" },
@@ -34,9 +36,20 @@ export default function TradingPage() {
     <main className="bg-white text-[#011E41] font-sans">
       <PageNav />
 
-      {/* Hero */}
-      <section className="pt-32 pb-24 px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
+      {/* Hero — split screen with decorative 02 */}
+      <section className="pt-32 pb-24 px-6 bg-white relative overflow-hidden">
+        {/* Decorative "02" background element on right */}
+        <motion.span
+          initial={{ opacity: 0, x: 80 }}
+          animate={{ opacity: 0.05, x: 0 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+          className="absolute right-0 top-1/2 -translate-y-1/2 text-[#011E41] text-[300px] md:text-[500px] font-bold leading-none select-none pointer-events-none"
+          aria-hidden="true"
+        >
+          02
+        </motion.span>
+
+        <div className="max-w-7xl mx-auto relative z-10">
           <Reveal><SectionLabel number="02" label="Trading & Distribution" /></Reveal>
           <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
             <div>
@@ -50,10 +63,18 @@ export default function TradingPage() {
         </div>
       </section>
 
-      {/* Services */}
+      {/* Services — with TRADING watermark */}
       <div className="section-divider" />
-      <section className="py-24 px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-24 px-6 bg-white relative overflow-hidden">
+        {/* Background TRADING watermark */}
+        <span
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[#011E41] text-[120px] md:text-[220px] font-bold tracking-[0.15em] uppercase select-none pointer-events-none whitespace-nowrap opacity-[0.03]"
+          aria-hidden="true"
+        >
+          TRADING
+        </span>
+
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid md:grid-cols-3 gap-6">
             {services.map((svc, i) => (
               <Reveal key={svc.num} delay={i * 0.1}>
@@ -70,7 +91,7 @@ export default function TradingPage() {
         </div>
       </section>
 
-      {/* Uppercut Deluxe */}
+      {/* Uppercut Deluxe — with staggered country tags */}
       <div className="section-divider" />
       <section className="py-24 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
@@ -81,11 +102,27 @@ export default function TradingPage() {
                 <SectionLabel number="02.1" label="Featured Brand" />
                 <h3 className="text-gradient-navy font-sans text-4xl md:text-5xl mb-6">Uppercut Deluxe</h3>
                 <p className="text-[#011E41]/60 leading-relaxed max-w-2xl">Sun Street has been the authorised distributor of Uppercut Deluxe in Hong Kong and China since 2016 and contributed to Uppercut&apos;s expansion in Asia by supporting distribution partners in Indonesia, Japan and Singapore as well as appointing distributors in Thailand, Korea, and Taiwan.</p>
-                <div className="flex flex-wrap gap-3 mt-8">
-                  {["Hong Kong", "China", "Indonesia", "Japan", "Singapore", "Thailand", "Korea", "Taiwan"].map((c) => (
-                    <span key={c} className="text-[10px] tracking-[0.2em] uppercase border border-[#011E41]/15 px-3 py-1 text-[#011E41]/40 hover:border-[#011E41] hover:text-[#011E41] transition-all duration-300">{c}</span>
+                <motion.div
+                  className="flex flex-wrap gap-3 mt-8"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-30px" }}
+                  variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}
+                >
+                  {countries.map((c) => (
+                    <motion.span
+                      key={c}
+                      variants={{
+                        hidden: { opacity: 0, scale: 0.7, y: 10 },
+                        visible: { opacity: 1, scale: 1, y: 0 },
+                      }}
+                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                      className="text-[10px] tracking-[0.2em] uppercase border border-[#011E41]/15 px-3 py-1 text-[#011E41]/40 hover:border-[#011E41] hover:text-[#011E41] transition-all duration-300"
+                    >
+                      {c}
+                    </motion.span>
                   ))}
-                </div>
+                </motion.div>
               </div>
             </TiltCard>
           </Reveal>

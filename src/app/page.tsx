@@ -5,7 +5,6 @@ import Link from "next/link";
 import SunLogo from "@/components/SunLogo";
 import CounterNumber from "@/components/CounterNumber";
 import TiltCard from "@/components/TiltCard";
-import MagneticButton from "@/components/MagneticButton";
 import PageNav from "@/components/PageNav";
 import PageFooter from "@/components/PageFooter";
 import InteractiveDotGrid from "@/components/InteractiveDotGrid";
@@ -64,7 +63,7 @@ function LandingHero() {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="mb-6"
         >
-          <h1 className="text-7xl md:text-9xl font-sans font-bold tracking-tight text-[#011E41] text-center leading-none">
+          <h1 className="text-5xl sm:text-7xl md:text-9xl font-sans font-bold tracking-tight text-[#011E41] text-center leading-none">
             <TextScramble text="SUN STREET" duration={1200} />
           </h1>
         </motion.div>
@@ -146,51 +145,26 @@ function LandingHero() {
 
 function StatsSection() {
   const stats = [
-    { value: 15, suffix: "+", label: "Years Experience", deco: "15" },
-    { value: 2016, suffix: "", label: "Established", deco: "2016" },
-    { value: 8, suffix: "+", label: "Countries", deco: "08" },
-    { value: 3, suffix: "", label: "Core Pillars", deco: "03" },
+    { value: 15, suffix: "+", label: "Years Experience" },
+    { value: 2016, suffix: "", label: "Established" },
+    { value: 8, suffix: "+", label: "Countries" },
+    { value: 3, suffix: "", label: "Core Pillars" },
   ];
   return (
     <>
       <div className="section-divider" />
-      <section className="py-32 px-6 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+      <section className="py-16 px-6 bg-white">
+        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
           {stats.map((stat, i) => (
             <Reveal key={stat.label} delay={i * 0.1}>
-              <div className="relative text-center">
-                <span className="deco-number absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[120px] md:text-[180px]">{stat.deco}</span>
-                <div className="relative z-10">
-                  <div className="font-sans text-5xl md:text-7xl text-[#011E41] mb-2">
-                    <CounterNumber end={stat.value} suffix={stat.suffix} duration={2 + i * 0.3} />
-                  </div>
-                  <p className="text-[#011E41]/40 text-xs tracking-[0.3em] uppercase">{stat.label}</p>
+              <div className="border-l-2 border-[#C9A84C] pl-5 py-2">
+                <div className="font-sans text-3xl md:text-4xl text-[#011E41] mb-1">
+                  <CounterNumber end={stat.value} suffix={stat.suffix} duration={2 + i * 0.3} />
                 </div>
+                <p className="text-[#011E41]/40 text-xs tracking-[0.2em] uppercase">{stat.label}</p>
               </div>
             </Reveal>
           ))}
-        </div>
-      </section>
-    </>
-  );
-}
-
-function ContactCTA() {
-  return (
-    <>
-      <div className="section-divider" />
-      <section className="relative py-40 overflow-hidden bg-white">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#011E41]/5 blur-[120px]" />
-        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
-          <Reveal><SunLogo className="w-20 h-20 mx-auto mb-12" /></Reveal>
-          <Reveal delay={0.1}><h2 className="text-gradient-navy font-sans text-6xl md:text-8xl">Let&apos;s Work</h2></Reveal>
-          <Reveal delay={0.2}><h2 className="text-gradient-navy font-sans text-6xl md:text-8xl italic">Together</h2></Reveal>
-          <Reveal delay={0.3}><p className="text-[#011E41]/50 text-lg mt-10 mb-16 max-w-xl mx-auto leading-relaxed">Ready to transform your business, expand into Asia, or unlock your potential? We&apos;d love to hear from you.</p></Reveal>
-          <Reveal delay={0.4}>
-            <MagneticButton href="mailto:hello@sunstreethk.com" className="!bg-[#011E41] !text-white !px-12 !py-4 !text-sm !tracking-[0.3em] uppercase !rounded-sm !border-0 hover:!bg-[#0E1D41] hover:!shadow-lg">
-              Get In Touch
-            </MagneticButton>
-          </Reveal>
         </div>
       </section>
     </>
@@ -203,7 +177,6 @@ export default function Home() {
       <PageNav />
       <LandingHero />
       <StatsSection />
-      <ContactCTA />
       <PageFooter />
     </main>
   );

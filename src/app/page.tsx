@@ -208,7 +208,7 @@ function Footer() {
           </div>
         </div>
         <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-white/30">&copy; 2024 Sun Street / Powered by Zen Lab</p>
+          <p className="text-xs text-white/30">&copy; 2026 Sun Street / Powered by Zen Lab</p>
           <p className="text-xs text-white/15">Designed with intention</p>
         </div>
       </div>

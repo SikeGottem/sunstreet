@@ -12,10 +12,10 @@ export default function InteractiveDotGrid() {
 
     let mouse = { x: -1000, y: -1000 };
     let raf: number;
-    const GAP = 24;
-    const BASE_R = 1.5;
-    const MAX_R = 4;
-    const INFLUENCE = 250;
+    const GAP = 28;
+    const BASE_R = 1;
+    const MAX_R = 2.5;
+    const INFLUENCE = 150;
 
     const resize = () => {
       const dpr = window.devicePixelRatio || 1;
@@ -51,7 +51,7 @@ export default function InteractiveDotGrid() {
           const t = Math.max(0, 1 - dist / INFLUENCE);
 
           const radius = BASE_R + (MAX_R - BASE_R) * t;
-          const alpha = 0.06 + 0.5 * t;
+          const alpha = 0.04 + 0.35 * t;
 
           ctx.beginPath();
           ctx.arc(x, y, radius, 0, Math.PI * 2);
@@ -65,14 +65,21 @@ export default function InteractiveDotGrid() {
 
     resize();
     window.addEventListener("resize", resize);
-    canvas.addEventListener("mousemove", onMove);
-    canvas.addEventListener("mouseleave", onLeave);
+    // Listen on the parent section (or window) so cursor tracks even over content
+    const parent = canvas.parentElement || window;
+    const onMoveWindow = (e: Event) => {
+      const me = e as MouseEvent;
+      const rect = canvas.getBoundingClientRect();
+      mouse = { x: me.clientX - rect.left, y: me.clientY - rect.top };
+    };
+    parent.addEventListener("mousemove", onMoveWindow);
+    parent.addEventListener("mouseleave", onLeave);
     raf = requestAnimationFrame(draw);
 
     return () => {
       window.removeEventListener("resize", resize);
-      canvas.removeEventListener("mousemove", onMove);
-      canvas.removeEventListener("mouseleave", onLeave);
+      parent.removeEventListener("mousemove", onMoveWindow);
+      parent.removeEventListener("mouseleave", onLeave);
       cancelAnimationFrame(raf);
     };
   }, []);
@@ -80,7 +87,7 @@ export default function InteractiveDotGrid() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-auto"
+      className="absolute inset-0 w-full h-full pointer-events-none"
       style={{ zIndex: 0 }}
     />
   );

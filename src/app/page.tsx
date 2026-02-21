@@ -131,7 +131,7 @@ function ContactCTA() {
   return (
     <>
       <div className="section-divider" />
-      <section className="relative py-40 overflow-hidden bg-[#EFEBE4]">
+      <section className="relative py-40 overflow-hidden bg-white">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#011E41]/5 blur-[120px]" />
         <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
           <Reveal><SunLogo className="w-20 h-20 mx-auto mb-12" /></Reveal>

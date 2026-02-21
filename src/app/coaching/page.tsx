@@ -75,7 +75,7 @@ export default function CoachingPage() {
       </section>
 
       {/* Sticky scroll services */}
-      <div ref={containerRef} className="relative bg-[#EFEBE4]" style={{ height: `${services.length * 100}vh` }}>
+      <div ref={containerRef} className="relative bg-white" style={{ height: `${services.length * 100}vh` }}>
         <div className="sticky top-0 h-screen overflow-hidden">
           {services.map((svc, i) => (
             <ServiceLayer key={svc.title} svc={svc} index={i} scrollYProgress={scrollYProgress} start={i / services.length} end={(i + 1) / services.length} total={services.length} />
@@ -91,7 +91,7 @@ export default function CoachingPage() {
           <div className="grid md:grid-cols-2 gap-8 items-start">
             {testimonials.map((t, i) => (
               <Reveal key={t.name} delay={i * 0.2} className={i === 1 ? "md:mt-12" : ""}>
-                <div className="border-2 border-[#011E41]/15 p-8 md:p-10 bg-[#EFEBE4] h-full card-lift rounded-sm">
+                <div className="border-2 border-[#011E41]/15 p-8 md:p-10 bg-white h-full card-lift rounded-sm">
                   <svg className="w-10 h-10 text-[#011E41]/10 mb-8" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" /></svg>
                   <p className="text-[#011E41]/60 leading-relaxed mb-8 italic text-lg">&ldquo;{t.text}&rdquo;</p>
                   <div className="flex items-center gap-4">

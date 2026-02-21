@@ -36,9 +36,8 @@ export default function Navigation() {
           </a>
           <div className="hidden md:flex items-center gap-8">
             {links.map((link) => (
-              <a key={link.href} href={link.href} className="relative text-sm tracking-wider uppercase text-[#011E41]/70 hover:text-[#011E41] transition-colors duration-300 group">
+              <a key={link.href} href={link.href} className="link-underline text-sm tracking-wider uppercase text-[#011E41]/70 hover:text-[#011E41] transition-colors duration-300">
                 {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-px bg-[#011E41] group-hover:w-full transition-all duration-300" />
               </a>
             ))}
           </div>

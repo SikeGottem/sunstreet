@@ -142,13 +142,16 @@ function ConsultingSection() {
         {/* Clients */}
         <div className="mt-24">
           <Reveal><p className="text-[#C9A84C] text-xs tracking-[0.4em] uppercase mb-10">Trusted By</p></Reveal>
-          <div className="flex flex-wrap items-center gap-x-16 gap-y-6">
-            {["Verco", "Lion Nathan", "Babcock & Brown", "Ageas"].map((c, i) => (
-              <Reveal key={c} delay={i * 0.1}>
-                <span className="text-[#011E41]/25 hover:text-[#011E41]/60 transition-colors text-xl font-sans tracking-wider">{c}</span>
-              </Reveal>
+          <Marquee speed="slow" className="py-4">
+            {[
+              { src: "/logos/verco.svg", alt: "Verco" },
+              { src: "/logos/lion-nathan.svg", alt: "Lion Nathan" },
+              { src: "/logos/babcock-brown.svg", alt: "Babcock & Brown" },
+              { src: "/logos/ageas.svg", alt: "Ageas" },
+            ].map((logo) => (
+              <img key={logo.alt} src={logo.src} alt={logo.alt} className="h-8 mx-12 opacity-30 hover:opacity-60 transition-opacity" style={{ filter: "brightness(0)" }} />
             ))}
-          </div>
+          </Marquee>
         </div>
       </div>
     </section>

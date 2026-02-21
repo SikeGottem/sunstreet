@@ -14,6 +14,72 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ─── SCROLL PROGRESS BAR ─── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #011E41, #C9A84C);
+  z-index: 9999;
+  transform-origin: left;
+  will-change: transform;
+}
+
+/* ─── TEXT GRADIENT CLIP ─── */
+.text-gradient-navy {
+  background: linear-gradient(135deg, #011E41 0%, #1a3a5c 50%, #011E41 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ─── ANIMATED UNDERLINE LINKS ─── */
+.link-underline {
+  position: relative;
+  display: inline-block;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: #011E41;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-underline:hover::after {
+  transform: scaleX(1);
+}
+
+/* ─── CARD HOVER LIFT ─── */
+.card-lift {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s ease, border-color 0.3s ease;
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(1, 30, 65, 0.08);
+}
+
+/* ─── SECTION DIVIDER ─── */
+.section-divider {
+  height: 1px;
+  background: rgba(1, 30, 65, 0.1);
+}
+
+/* ─── OVERSIZED DECORATIVE NUMBER ─── */
+.deco-number {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  line-height: 0.85;
+  color: rgba(1, 30, 65, 0.05);
+  pointer-events: none;
+  user-select: none;
+}
+
 /* Marquee animation — pure CSS */
 @keyframes marquee {
   0% { transform: translateX(0); }
@@ -26,6 +92,18 @@ html {
   animation: marquee 20s linear infinite;
 }
 
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
+.animate-marquee-slow {
+  animation: marquee 40s linear infinite;
+}
+
+.animate-marquee-reverse {
+  animation: marquee 20s linear infinite reverse;
+}
+
 /* Scroll indicator pulse */
 @keyframes pulse-down {
   0%, 100% { opacity: 0.4; transform: translateY(0); }
@@ -36,7 +114,7 @@ html {
   animation: pulse-down 2s ease-in-out infinite;
 }
 
-/* Section reveal — CSS only, enhanced by IntersectionObserver adding class */
+/* Section reveal */
 .reveal {
   opacity: 0;
   transform: translateY(40px);
@@ -97,24 +175,6 @@ html {
   font-family: var(--font-sans);
 }
 
-/* Navy underline on hover */
-.gold-hover {
-  position: relative;
-}
-.gold-hover::after {
-  content: "";
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--color-navy);
-  transition: width 0.3s ease;
-}
-.gold-hover:hover::after {
-  width: 100%;
-}
-
 /* Client logo text styling */
 .client-logo {
   font-size: 0.875rem;
@@ -125,4 +185,15 @@ html {
 }
 .client-logo:hover {
   color: var(--color-navy);
+}
+
+/* ─── LANDING CARD ARROW ─── */
+.landing-card .card-arrow {
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.landing-card:hover .card-arrow {
+  opacity: 1;
+  transform: translateX(0);
 }

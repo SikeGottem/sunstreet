@@ -12,10 +12,10 @@ export default function InteractiveDotGrid() {
 
     let mouse = { x: -1000, y: -1000 };
     let raf: number;
-    const GAP = 28;
-    const BASE_R = 1;
-    const MAX_R = 2.5;
-    const INFLUENCE = 150;
+    const GAP = 24;
+    const BASE_R = 1.5;
+    const MAX_R = 4;
+    const INFLUENCE = 250;
 
     const resize = () => {
       const dpr = window.devicePixelRatio || 1;
@@ -51,7 +51,7 @@ export default function InteractiveDotGrid() {
           const t = Math.max(0, 1 - dist / INFLUENCE);
 
           const radius = BASE_R + (MAX_R - BASE_R) * t;
-          const alpha = 0.04 + 0.35 * t;
+          const alpha = 0.06 + 0.5 * t;
 
           ctx.beginPath();
           ctx.arc(x, y, radius, 0, Math.PI * 2);

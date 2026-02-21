@@ -2,6 +2,7 @@
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { useRef } from "react";
 import Navigation from "@/components/Navigation";
+import ScrollProgress from "@/components/ScrollProgress";
 import SunLogo from "@/components/SunLogo";
 import Marquee from "@/components/Marquee";
 import CounterNumber from "@/components/CounterNumber";
@@ -12,6 +13,17 @@ function Reveal({ children, delay = 0, className = "" }: { children: React.React
     <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }} className={className}>
       {children}
     </motion.div>
+  );
+}
+
+/* ─── SECTION LABEL ─── */
+function SectionLabel({ number, label }: { number: string; label: string }) {
+  return (
+    <p className="text-[11px] tracking-[0.4em] uppercase text-[#011E41]/40 mb-8 font-mono">
+      <span className="text-[#C9A84C]">{number}</span>
+      <span className="mx-3 text-[#011E41]/20">—</span>
+      {label}
+    </p>
   );
 }
 
@@ -41,13 +53,16 @@ function LandingSection() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 + i * 0.15, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="group border-2 border-[#011E41]/15 bg-white p-12 text-center hover:bg-[#011E41] hover:border-[#011E41] transition-all duration-500 shadow-sm hover:shadow-xl rounded-sm"
+            className="landing-card group relative border-2 border-[#011E41]/15 bg-white p-12 text-center card-lift hover:bg-[#011E41] hover:border-[#011E41] rounded-sm"
             onClick={(e) => { e.preventDefault(); document.getElementById(card.id)?.scrollIntoView({ behavior: "smooth" }); }}
           >
-            <span className="text-[#011E41]/40 text-3xl block mb-6 group-hover:text-white/60 transition-colors duration-500">{card.icon}</span>
-            <h3 className="font-sans text-2xl tracking-wide mb-4 text-[#011E41] group-hover:text-white transition-colors duration-500">{card.title}</h3>
-            <p className="text-[#011E41]/50 text-sm leading-relaxed group-hover:text-white/60 transition-colors duration-500">{card.desc}</p>
-            <div className="w-0 group-hover:w-12 h-px bg-white/50 mx-auto mt-6 transition-all duration-700" />
+            <span className="text-[#011E41]/30 text-3xl block mb-6 group-hover:text-white/50 transition-colors duration-300">{card.icon}</span>
+            <h3 className="font-sans text-2xl tracking-wide mb-4 text-[#011E41] group-hover:text-white transition-colors duration-300">{card.title}</h3>
+            <p className="text-[#011E41]/50 text-sm leading-relaxed group-hover:text-white/60 transition-colors duration-300">{card.desc}</p>
+            {/* Arrow that slides in on hover */}
+            <div className="mt-8 flex justify-center">
+              <span className="card-arrow text-white text-lg">→</span>
+            </div>
           </motion.a>
         ))}
       </div>
@@ -63,26 +78,33 @@ function LandingSection() {
 /* ─── STATS ─── */
 function StatsSection() {
   const stats = [
-    { value: 15, suffix: "+", label: "Years Experience" },
-    { value: 2016, suffix: "", label: "Established" },
-    { value: 8, suffix: "+", label: "Countries" },
-    { value: 3, suffix: "", label: "Core Pillars" },
+    { value: 15, suffix: "+", label: "Years Experience", deco: "15" },
+    { value: 2016, suffix: "", label: "Established", deco: "2016" },
+    { value: 8, suffix: "+", label: "Countries", deco: "08" },
+    { value: 3, suffix: "", label: "Core Pillars", deco: "03" },
   ];
   return (
-    <section className="py-24 px-6 border-y border-[#011E41]/10 bg-[#EFEBE4]">
-      <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-        {stats.map((stat, i) => (
-          <Reveal key={stat.label} delay={i * 0.1}>
-            <div className="text-center">
-              <div className="font-sans text-5xl md:text-7xl text-[#011E41] mb-2">
-                <CounterNumber end={stat.value} suffix={stat.suffix} duration={2 + i * 0.3} />
+    <>
+      <div className="section-divider" />
+      <section className="py-32 px-6 bg-[#EFEBE4] overflow-hidden">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+          {stats.map((stat, i) => (
+            <Reveal key={stat.label} delay={i * 0.1}>
+              <div className="relative text-center">
+                {/* Oversized decorative number */}
+                <span className="deco-number absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[120px] md:text-[180px]">{stat.deco}</span>
+                <div className="relative z-10">
+                  <div className="font-sans text-5xl md:text-7xl text-[#011E41] mb-2">
+                    <CounterNumber end={stat.value} suffix={stat.suffix} duration={2 + i * 0.3} />
+                  </div>
+                  <p className="text-[#011E41]/40 text-xs tracking-[0.3em] uppercase">{stat.label}</p>
+                </div>
               </div>
-              <p className="text-[#011E41]/40 text-xs tracking-[0.3em] uppercase">{stat.label}</p>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-    </section>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+    </>
   );
 }
 
@@ -99,62 +121,75 @@ function ConsultingSection() {
   ];
 
   return (
-    <section id="consulting" className="py-32 px-6 bg-white">
-      <div className="max-w-7xl mx-auto">
-        <Reveal><p className="text-[#C9A84C] text-xs tracking-[0.4em] uppercase mb-6">Consulting</p></Reveal>
-        <Reveal delay={0.1}><h2 className="font-sans text-5xl md:text-7xl leading-[0.95] mb-2 text-[#011E41]">With over <span className="italic">15 years</span></h2></Reveal>
-        <Reveal delay={0.2}><h2 className="font-sans text-5xl md:text-7xl leading-[0.95] mb-10 text-[#011E41]">experience</h2></Reveal>
-        <Reveal delay={0.3}>
-          <div className="max-w-2xl mb-6">
-            <p className="text-[#011E41]/60 text-lg leading-relaxed">Sun Street helps organisations develop and implement strategy. Established in 2016, we assist clients review, develop and implement strategic plans across industries.</p>
-            <p className="text-[#011E41]/50 mt-4 leading-relaxed">Founded by an ex-management consultant with 15+ years of APAC experience. From large scale transformations to SME business reviews.</p>
+    <>
+      <div className="section-divider" />
+      <section id="consulting" className="py-32 px-6 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <Reveal><SectionLabel number="01" label="Consulting" /></Reveal>
+
+          {/* Staggered 2-col layout */}
+          <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
+            <div>
+              <Reveal delay={0.1}>
+                <h2 className="text-gradient-navy font-sans text-5xl md:text-7xl leading-[0.95] mb-2">With over</h2>
+              </Reveal>
+              <Reveal delay={0.2}>
+                <h2 className="text-gradient-navy font-sans text-5xl md:text-7xl leading-[0.95] italic">15 years</h2>
+              </Reveal>
+              <Reveal delay={0.25}>
+                <h2 className="text-gradient-navy font-sans text-5xl md:text-7xl leading-[0.95] mb-10">experience</h2>
+              </Reveal>
+            </div>
+            <div className="md:mt-16">
+              <Reveal delay={0.3}>
+                <p className="text-[#011E41]/60 text-lg leading-relaxed">Sun Street helps organisations develop and implement strategy. Established in 2016, we assist clients review, develop and implement strategic plans across industries.</p>
+                <p className="text-[#011E41]/50 mt-4 leading-relaxed">Founded by an ex-management consultant with 15+ years of APAC experience. From large scale transformations to SME business reviews.</p>
+              </Reveal>
+            </div>
           </div>
-        </Reveal>
 
-        {/* Services */}
-        <div className="grid md:grid-cols-3 gap-6 mt-20 mb-32">
-          {services.map((svc, i) => (
-            <Reveal key={svc.num} delay={i * 0.1}>
-              <div className="border-2 border-[#011E41]/15 p-8 bg-white h-full group hover:bg-[#011E41] hover:border-[#011E41] transition-all duration-500 shadow-sm hover:shadow-lg rounded-sm">
-                <span className="text-[#C9A84C]/50 font-mono text-sm group-hover:text-white/30 transition-colors duration-500">{svc.num}</span>
-                <h4 className="font-sans text-2xl mt-4 mb-4 text-[#011E41] group-hover:text-white transition-colors duration-500">{svc.title}</h4>
-                <p className="text-[#011E41]/50 text-sm leading-relaxed group-hover:text-white/60 transition-colors duration-500">{svc.desc}</p>
-                <div className="w-0 group-hover:w-12 h-px bg-white/50 mt-6 transition-all duration-700" />
-              </div>
-            </Reveal>
-          ))}
-        </div>
-
-        {/* Case Studies */}
-        <Reveal><p className="text-[#C9A84C] text-xs tracking-[0.4em] uppercase mb-4">Case Studies</p></Reveal>
-        <Reveal delay={0.1}><h3 className="font-sans text-4xl md:text-5xl mb-16 text-[#011E41]">Programme & <span className="italic">Change Management</span></h3></Reveal>
-        <div className="grid md:grid-cols-2 gap-6">
-          {caseStudies.map((cs, i) => (
-            <Reveal key={cs.title} delay={i * 0.15}>
-              <div className="border-2 border-[#011E41]/15 p-8 md:p-10 bg-[#EFEBE4] h-full rounded-sm">
-                <span className="text-[#C9A84C] text-xs tracking-[0.3em] uppercase">{cs.title}</span>
-                <p className="text-[#011E41]/60 mt-4 leading-relaxed">{cs.desc}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-
-        {/* Clients */}
-        <div className="mt-24">
-          <Reveal><p className="text-[#C9A84C] text-xs tracking-[0.4em] uppercase mb-10">Trusted By</p></Reveal>
-          <Marquee speed="slow" className="py-4">
-            {[
-              { src: "/logos/verco.svg", alt: "Verco" },
-              { src: "/logos/lion-nathan.svg", alt: "Lion Nathan" },
-              { src: "/logos/babcock-brown.svg", alt: "Babcock & Brown" },
-              { src: "/logos/ageas.svg", alt: "Ageas" },
-            ].map((logo) => (
-              <img key={logo.alt} src={logo.src} alt={logo.alt} className="h-8 mx-12 opacity-30 hover:opacity-60 transition-opacity" style={{ filter: "brightness(0)" }} />
+          {/* Services — card lift */}
+          <div className="grid md:grid-cols-3 gap-6 mt-24 mb-32">
+            {services.map((svc, i) => (
+              <Reveal key={svc.num} delay={i * 0.1}>
+                <div className="border-2 border-[#011E41]/15 p-8 bg-white h-full group card-lift hover:bg-[#011E41] hover:border-[#011E41] rounded-sm">
+                  <span className="text-[#C9A84C]/50 font-mono text-sm group-hover:text-white/30 transition-colors duration-300">{svc.num}</span>
+                  <h4 className="font-sans text-2xl mt-4 mb-4 text-[#011E41] group-hover:text-white transition-colors duration-300">{svc.title}</h4>
+                  <p className="text-[#011E41]/50 text-sm leading-relaxed group-hover:text-white/60 transition-colors duration-300">{svc.desc}</p>
+                  <div className="w-0 group-hover:w-12 h-px bg-white/50 mt-6 transition-all duration-700" />
+                </div>
+              </Reveal>
             ))}
-          </Marquee>
+          </div>
+
+          {/* Case Studies */}
+          <Reveal><SectionLabel number="01.1" label="Case Studies" /></Reveal>
+          <Reveal delay={0.1}><h3 className="text-gradient-navy font-sans text-4xl md:text-5xl mb-16">Programme & <span className="italic">Change Management</span></h3></Reveal>
+          <div className="grid md:grid-cols-2 gap-6">
+            {caseStudies.map((cs, i) => (
+              <Reveal key={cs.title} delay={i * 0.15}>
+                <div className="border-2 border-[#011E41]/15 p-8 md:p-10 bg-[#EFEBE4] h-full card-lift rounded-sm">
+                  <span className="text-[#C9A84C] text-xs tracking-[0.3em] uppercase">{cs.title}</span>
+                  <p className="text-[#011E41]/60 mt-4 leading-relaxed">{cs.desc}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* Clients */}
+          <div className="mt-24">
+            <Reveal><p className="text-[#C9A84C] text-xs tracking-[0.4em] uppercase mb-10">Trusted By</p></Reveal>
+            <div className="flex flex-wrap items-center gap-x-16 gap-y-6">
+              {["Verco", "Lion Nathan", "Babcock & Brown", "Ageas"].map((c, i) => (
+                <Reveal key={c} delay={i * 0.1}>
+                  <span className="link-underline text-[#011E41]/25 hover:text-[#011E41]/60 transition-colors text-xl font-sans tracking-wider cursor-default">{c}</span>
+                </Reveal>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
 
@@ -167,41 +202,56 @@ function TradingSection() {
   ];
 
   return (
-    <section id="trading" className="py-32 px-6 border-t border-[#011E41]/10 bg-[#EFEBE4]">
-      <div className="max-w-7xl mx-auto">
-        <Reveal><p className="text-[#C9A84C] text-xs tracking-[0.4em] uppercase mb-6">Trading &amp; Distribution</p></Reveal>
-        <Reveal delay={0.1}><h2 className="font-sans text-5xl md:text-7xl leading-[0.95] text-[#011E41]">Passionate About</h2></Reveal>
-        <Reveal delay={0.15}><h2 className="font-sans text-5xl md:text-7xl leading-[0.95] text-[#011E41] italic mb-10">Brands for Asia</h2></Reveal>
-        <Reveal delay={0.3}><p className="text-[#011E41]/60 text-lg leading-relaxed max-w-2xl mb-20">At Sun Street, we are passionate about finding new or established brands for Asia. We connect global brands with the opportunities and networks they need to thrive in Asian markets.</p></Reveal>
+    <>
+      <div className="section-divider" />
+      <section id="trading" className="py-32 px-6 bg-[#EFEBE4]">
+        <div className="max-w-7xl mx-auto">
+          <Reveal><SectionLabel number="02" label="Trading & Distribution" /></Reveal>
 
-        <div className="grid md:grid-cols-3 gap-6 mb-32">
-          {services.map((svc, i) => (
-            <Reveal key={svc.num} delay={i * 0.1}>
-              <div className="border-2 border-[#011E41]/15 p-8 bg-white h-full group hover:bg-[#011E41] hover:border-[#011E41] transition-all duration-500 shadow-sm hover:shadow-lg rounded-sm">
-                <span className="text-[#C9A84C]/50 font-mono text-sm group-hover:text-white/30 transition-colors duration-500">{svc.num}</span>
-                <h4 className="font-sans text-2xl mt-4 mb-4 text-[#011E41] group-hover:text-white transition-colors duration-500">{svc.title}</h4>
-                <p className="text-[#011E41]/50 text-sm leading-relaxed group-hover:text-white/60 transition-colors duration-500">{svc.desc}</p>
-                <div className="w-0 group-hover:w-12 h-px bg-white/50 mt-6 transition-all duration-700" />
-              </div>
-            </Reveal>
-          ))}
-        </div>
-
-        {/* Uppercut Deluxe */}
-        <Reveal>
-          <div className="border-2 border-[#011E41]/15 p-8 md:p-16 bg-white rounded-sm shadow-sm">
-            <p className="text-[#C9A84C] text-xs tracking-[0.4em] uppercase mb-6">Featured Brand</p>
-            <h3 className="font-sans text-4xl md:text-5xl mb-6 text-[#011E41]">Uppercut Deluxe</h3>
-            <p className="text-[#011E41]/60 leading-relaxed max-w-2xl">Sun Street has been the authorised distributor of Uppercut Deluxe in Hong Kong and China since 2016 and contributed to Uppercut&apos;s expansion in Asia by supporting distribution partners in Indonesia, Japan and Singapore as well as appointing distributors in Thailand, Korea, and Taiwan.</p>
-            <div className="flex flex-wrap gap-3 mt-8">
-              {["Hong Kong", "China", "Indonesia", "Japan", "Singapore", "Thailand", "Korea", "Taiwan"].map((c) => (
-                <span key={c} className="text-[10px] tracking-[0.2em] uppercase border border-[#011E41]/15 px-3 py-1 text-[#011E41]/40 hover:border-[#011E41] hover:text-[#011E41] transition-all duration-300">{c}</span>
-              ))}
+          {/* Staggered layout — text right, heading left */}
+          <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
+            <div>
+              <Reveal delay={0.1}><h2 className="text-gradient-navy font-sans text-5xl md:text-7xl leading-[0.95]">Passionate About</h2></Reveal>
+              <Reveal delay={0.15}><h2 className="text-gradient-navy font-sans text-5xl md:text-7xl leading-[0.95] italic mb-10">Brands for Asia</h2></Reveal>
+            </div>
+            <div className="md:mt-12">
+              <Reveal delay={0.3}><p className="text-[#011E41]/60 text-lg leading-relaxed">At Sun Street, we are passionate about finding new or established brands for Asia. We connect global brands with the opportunities and networks they need to thrive in Asian markets.</p></Reveal>
             </div>
           </div>
-        </Reveal>
-      </div>
-    </section>
+
+          <div className="grid md:grid-cols-3 gap-6 mt-20 mb-32">
+            {services.map((svc, i) => (
+              <Reveal key={svc.num} delay={i * 0.1}>
+                <div className="border-2 border-[#011E41]/15 p-8 bg-white h-full group card-lift hover:bg-[#011E41] hover:border-[#011E41] rounded-sm">
+                  <span className="text-[#C9A84C]/50 font-mono text-sm group-hover:text-white/30 transition-colors duration-300">{svc.num}</span>
+                  <h4 className="font-sans text-2xl mt-4 mb-4 text-[#011E41] group-hover:text-white transition-colors duration-300">{svc.title}</h4>
+                  <p className="text-[#011E41]/50 text-sm leading-relaxed group-hover:text-white/60 transition-colors duration-300">{svc.desc}</p>
+                  <div className="w-0 group-hover:w-12 h-px bg-white/50 mt-6 transition-all duration-700" />
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* Uppercut Deluxe */}
+          <Reveal>
+            <div className="border-2 border-[#011E41]/15 p-8 md:p-16 bg-white rounded-sm card-lift relative overflow-hidden">
+              {/* Decorative background text */}
+              <span className="deco-number absolute -right-8 -top-8 text-[200px] md:text-[280px] leading-none select-none">UD</span>
+              <div className="relative z-10">
+                <SectionLabel number="02.1" label="Featured Brand" />
+                <h3 className="text-gradient-navy font-sans text-4xl md:text-5xl mb-6">Uppercut Deluxe</h3>
+                <p className="text-[#011E41]/60 leading-relaxed max-w-2xl">Sun Street has been the authorised distributor of Uppercut Deluxe in Hong Kong and China since 2016 and contributed to Uppercut&apos;s expansion in Asia by supporting distribution partners in Indonesia, Japan and Singapore as well as appointing distributors in Thailand, Korea, and Taiwan.</p>
+                <div className="flex flex-wrap gap-3 mt-8">
+                  {["Hong Kong", "China", "Indonesia", "Japan", "Singapore", "Thailand", "Korea", "Taiwan"].map((c) => (
+                    <span key={c} className="text-[10px] tracking-[0.2em] uppercase border border-[#011E41]/15 px-3 py-1 text-[#011E41]/40 hover:border-[#011E41] hover:text-[#011E41] transition-all duration-300">{c}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+    </>
   );
 }
 
@@ -211,11 +261,15 @@ function ServiceLayer({ svc, index, scrollYProgress, start, end, total }: { svc:
   const scale = useTransform(scrollYProgress, [start, start + 0.1, end - 0.05, end], [0.9, 1, 1, index === total - 1 ? 1 : 0.95]);
   return (
     <motion.div style={{ opacity, scale }} className="absolute inset-0 flex items-center justify-center px-6">
-      <div className="max-w-3xl">
-        <span className="text-[#011E41]/20 font-mono text-sm mb-4 block">0{index + 1}</span>
-        <h4 className="font-sans text-4xl md:text-5xl mb-6 text-[#011E41]">{svc.title}</h4>
-        <p className="text-[#011E41]/60 leading-relaxed text-lg max-w-lg">{svc.desc}</p>
-        <div className="w-16 h-px bg-[#011E41]/20 mt-8" />
+      <div className="max-w-3xl relative">
+        {/* Oversized decorative index */}
+        <span className="deco-number absolute -left-8 md:-left-20 -top-16 text-[150px] md:text-[220px]">0{index + 1}</span>
+        <div className="relative z-10">
+          <span className="text-[#011E41]/20 font-mono text-sm mb-4 block">0{index + 1}</span>
+          <h4 className="text-gradient-navy font-sans text-4xl md:text-5xl mb-6">{svc.title}</h4>
+          <p className="text-[#011E41]/60 leading-relaxed text-lg max-w-lg">{svc.desc}</p>
+          <div className="w-16 h-px bg-[#011E41]/20 mt-8" />
+        </div>
       </div>
     </motion.div>
   );
@@ -235,71 +289,84 @@ function CoachingSection() {
   ];
 
   return (
-    <section id="coaching" className="border-t border-[#011E41]/10">
-      {/* Intro */}
-      <div className="py-32 px-6 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <Reveal><p className="text-[#C9A84C] text-xs tracking-[0.4em] uppercase mb-6">Coaching</p></Reveal>
-          <Reveal delay={0.1}><h2 className="font-sans text-5xl md:text-7xl leading-[0.95] text-[#011E41]">Change subconscious</h2></Reveal>
-          <Reveal delay={0.15}><h2 className="font-sans text-5xl md:text-7xl leading-[0.95] text-[#011E41] italic">beliefs that are</h2></Reveal>
-          <Reveal delay={0.2}><h2 className="font-sans text-5xl md:text-7xl leading-[0.95] mb-10 text-[#011E41]">self-limiting</h2></Reveal>
-          <Reveal delay={0.3}><p className="text-[#011E41]/60 text-lg leading-relaxed max-w-2xl">Sun Street provides personal life coaching to change subconscious beliefs that are self-limiting and self-sabotaging. Transform your inner landscape and unlock your fullest potential.</p></Reveal>
+    <>
+      <div className="section-divider" />
+      <section id="coaching">
+        {/* Intro — staggered layout */}
+        <div className="py-32 px-6 bg-white">
+          <div className="max-w-7xl mx-auto">
+            <Reveal><SectionLabel number="03" label="Coaching" /></Reveal>
+            <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
+              <div>
+                <Reveal delay={0.1}><h2 className="text-gradient-navy font-sans text-5xl md:text-7xl leading-[0.95]">Change subconscious</h2></Reveal>
+                <Reveal delay={0.15}><h2 className="text-gradient-navy font-sans text-5xl md:text-7xl leading-[0.95] italic">beliefs that are</h2></Reveal>
+                <Reveal delay={0.2}><h2 className="text-gradient-navy font-sans text-5xl md:text-7xl leading-[0.95]">self-limiting</h2></Reveal>
+              </div>
+              <div className="md:mt-20">
+                <Reveal delay={0.3}><p className="text-[#011E41]/60 text-lg leading-relaxed">Sun Street provides personal life coaching to change subconscious beliefs that are self-limiting and self-sabotaging. Transform your inner landscape and unlock your fullest potential.</p></Reveal>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
 
-      {/* Sticky scroll services */}
-      <div ref={containerRef} className="relative bg-[#EFEBE4]" style={{ height: `${services.length * 100}vh` }}>
-        <div className="sticky top-0 h-screen overflow-hidden">
-          {services.map((svc, i) => (
-            <ServiceLayer key={svc.title} svc={svc} index={i} scrollYProgress={scrollYProgress} start={i / services.length} end={(i + 1) / services.length} total={services.length} />
-          ))}
-        </div>
-      </div>
-
-      {/* Testimonials */}
-      <div className="py-32 px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <Reveal><p className="text-[#C9A84C] text-xs tracking-[0.4em] uppercase mb-4">Testimonials</p></Reveal>
-          <Reveal delay={0.1}><h3 className="font-sans text-4xl md:text-5xl mb-16 text-[#011E41]">What People <span className="italic">Say</span></h3></Reveal>
-          <div className="grid md:grid-cols-2 gap-8">
-            {testimonials.map((t, i) => (
-              <Reveal key={t.name} delay={i * 0.2}>
-                <div className="border-2 border-[#011E41]/15 p-8 md:p-10 bg-[#EFEBE4] h-full rounded-sm">
-                  <svg className="w-10 h-10 text-[#011E41]/10 mb-8" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" /></svg>
-                  <p className="text-[#011E41]/60 leading-relaxed mb-8 italic text-lg">&ldquo;{t.text}&rdquo;</p>
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-full bg-[#011E41]/10 flex items-center justify-center"><span className="text-[#011E41] text-sm font-sans">{t.name[0]}</span></div>
-                    <p className="text-[#011E41] text-sm tracking-wider uppercase">&mdash; {t.name}</p>
-                  </div>
-                </div>
-              </Reveal>
+        {/* Sticky scroll services */}
+        <div ref={containerRef} className="relative bg-[#EFEBE4]" style={{ height: `${services.length * 100}vh` }}>
+          <div className="sticky top-0 h-screen overflow-hidden">
+            {services.map((svc, i) => (
+              <ServiceLayer key={svc.title} svc={svc} index={i} scrollYProgress={scrollYProgress} start={i / services.length} end={(i + 1) / services.length} total={services.length} />
             ))}
           </div>
         </div>
-      </div>
-    </section>
+
+        {/* Testimonials */}
+        <div className="py-32 px-6 bg-white">
+          <div className="max-w-7xl mx-auto">
+            <Reveal><SectionLabel number="03.1" label="Testimonials" /></Reveal>
+            <Reveal delay={0.1}><h3 className="text-gradient-navy font-sans text-4xl md:text-5xl mb-16">What People <span className="italic">Say</span></h3></Reveal>
+            {/* Staggered testimonial grid */}
+            <div className="grid md:grid-cols-2 gap-8 items-start">
+              {testimonials.map((t, i) => (
+                <Reveal key={t.name} delay={i * 0.2} className={i === 1 ? "md:mt-12" : ""}>
+                  <div className="border-2 border-[#011E41]/15 p-8 md:p-10 bg-[#EFEBE4] h-full card-lift rounded-sm">
+                    <svg className="w-10 h-10 text-[#011E41]/10 mb-8" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" /></svg>
+                    <p className="text-[#011E41]/60 leading-relaxed mb-8 italic text-lg">&ldquo;{t.text}&rdquo;</p>
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-full bg-[#011E41]/10 flex items-center justify-center"><span className="text-[#011E41] text-sm font-sans">{t.name[0]}</span></div>
+                      <p className="text-[#011E41] text-sm tracking-wider uppercase">&mdash; {t.name}</p>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
 
 /* ─── CONTACT ─── */
 function ContactSection() {
   return (
-    <section id="contact" className="relative py-40 overflow-hidden bg-[#EFEBE4] border-t border-[#011E41]/10">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#011E41]/5 blur-[120px]" />
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
-        <Reveal>
-          <SunLogo className="w-20 h-20 mx-auto mb-12" />
-        </Reveal>
-        <Reveal delay={0.1}><h2 className="font-sans text-6xl md:text-8xl text-[#011E41]">Let&apos;s Work</h2></Reveal>
-        <Reveal delay={0.2}><h2 className="font-sans text-6xl md:text-8xl text-[#011E41] italic">Together</h2></Reveal>
-        <Reveal delay={0.3}><p className="text-[#011E41]/50 text-lg mt-10 mb-16 max-w-xl mx-auto leading-relaxed">Ready to transform your business, expand into Asia, or unlock your potential? We&apos;d love to hear from you.</p></Reveal>
-        <Reveal delay={0.4}>
-          <a href="mailto:hello@sunstreethk.com" className="inline-block bg-[#011E41] text-white px-12 py-4 text-sm tracking-[0.3em] uppercase rounded-sm hover:bg-[#0E1D41] transition-all duration-500">
-            Get In Touch
-          </a>
-        </Reveal>
-      </div>
-    </section>
+    <>
+      <div className="section-divider" />
+      <section id="contact" className="relative py-40 overflow-hidden bg-[#EFEBE4]">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#011E41]/5 blur-[120px]" />
+        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+          <Reveal>
+            <SunLogo className="w-20 h-20 mx-auto mb-12" />
+          </Reveal>
+          <Reveal delay={0.1}><h2 className="text-gradient-navy font-sans text-6xl md:text-8xl">Let&apos;s Work</h2></Reveal>
+          <Reveal delay={0.2}><h2 className="text-gradient-navy font-sans text-6xl md:text-8xl italic">Together</h2></Reveal>
+          <Reveal delay={0.3}><p className="text-[#011E41]/50 text-lg mt-10 mb-16 max-w-xl mx-auto leading-relaxed">Ready to transform your business, expand into Asia, or unlock your potential? We&apos;d love to hear from you.</p></Reveal>
+          <Reveal delay={0.4}>
+            <a href="mailto:hello@sunstreethk.com" className="inline-block bg-[#011E41] text-white px-12 py-4 text-sm tracking-[0.3em] uppercase rounded-sm hover:bg-[#0E1D41] hover:shadow-lg hover:-translate-y-0.5 transition-all duration-500">
+              Get In Touch
+            </a>
+          </Reveal>
+        </div>
+      </section>
+    </>
   );
 }
 
@@ -355,6 +422,7 @@ function Footer() {
 export default function Home() {
   return (
     <main className="bg-white text-[#011E41] font-sans">
+      <ScrollProgress />
       <Navigation />
       <LandingSection />
       <StatsSection />

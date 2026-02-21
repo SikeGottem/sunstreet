@@ -1,5 +1,24 @@
 @import "tailwindcss";
 
+/* Pillar cards — navy fill on hover */
+.pillar-card {
+  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+.pillar-card:hover {
+  background-color: #011E41 !important;
+  border-color: #011E41 !important;
+}
+.pillar-card:hover h3,
+.pillar-card:hover span:first-child {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+.pillar-card:hover p {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+.pillar-card:hover .hover-arrow {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
 @theme {
   --font-sans: var(--font-sans);
   --color-gold: #C9A84C;

@@ -104,7 +104,7 @@ export default function PageNav() {
       >
         {/* Logo at top */}
         <div className="absolute top-8 left-1/2 -translate-x-1/2">
-          <SunLogo className="w-12 h-12 text-white [&_*]:fill-white [&_*]:stroke-white" />
+          <SunLogo className="w-12 h-12 text-white" />
         </div>
 
         <div className="flex flex-col items-center gap-10">

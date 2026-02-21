@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import SunLogo from "./SunLogo";
 import Marquee from "./Marquee";
+import MagneticButton from "./MagneticButton";
 
 function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
@@ -25,9 +26,9 @@ export default function PageFooter() {
           <Reveal delay={0.2}><h2 className="text-gradient-navy font-sans text-6xl md:text-8xl italic">Together</h2></Reveal>
           <Reveal delay={0.3}><p className="text-[#011E41]/50 text-lg mt-10 mb-16 max-w-xl mx-auto leading-relaxed">Ready to transform your business, expand into Asia, or unlock your potential? We&apos;d love to hear from you.</p></Reveal>
           <Reveal delay={0.4}>
-            <a href="mailto:hello@sunstreethk.com" className="inline-block bg-[#011E41] text-white px-12 py-4 text-sm tracking-[0.3em] uppercase rounded-xl hover:bg-[#0E1D41] hover:shadow-lg hover:-translate-y-0.5 transition-all duration-500">
+            <MagneticButton href="mailto:hello@sunstreethk.com" className="!bg-[#011E41] !text-white !px-12 !py-4 !text-sm !tracking-[0.3em] uppercase !rounded-xl !border-0 hover:!bg-[#0E1D41] hover:!shadow-lg">
               Get In Touch
-            </a>
+            </MagneticButton>
           </Reveal>
         </div>
       </section>

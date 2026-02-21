@@ -3,6 +3,8 @@ import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { useRef } from "react";
 import PageNav from "@/components/PageNav";
 import PageFooter from "@/components/PageFooter";
+import TiltCard from "@/components/TiltCard";
+import TextScramble from "@/components/TextScramble";
 
 function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
@@ -63,7 +65,7 @@ export default function CoachingPage() {
           <Reveal><SectionLabel number="03" label="Coaching" /></Reveal>
           <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
             <div>
-              <Reveal delay={0.1}><h1 className="text-gradient-navy font-sans text-5xl md:text-7xl leading-[0.95]">Change subconscious</h1></Reveal>
+              <Reveal delay={0.1}><h1 className="text-gradient-navy font-sans text-5xl md:text-7xl leading-[0.95]"><TextScramble text="Change subconscious" /></h1></Reveal>
               <Reveal delay={0.15}><h1 className="text-gradient-navy font-sans text-5xl md:text-7xl leading-[0.95] italic">beliefs that are</h1></Reveal>
               <Reveal delay={0.2}><h1 className="text-gradient-navy font-sans text-5xl md:text-7xl leading-[0.95]">self-limiting</h1></Reveal>
             </div>
@@ -91,14 +93,15 @@ export default function CoachingPage() {
           <div className="grid md:grid-cols-2 gap-8 items-start">
             {testimonials.map((t, i) => (
               <Reveal key={t.name} delay={i * 0.2} className={i === 1 ? "md:mt-12" : ""}>
-                <div className="border-2 border-[#011E41]/15 p-8 md:p-10 bg-white h-full card-lift rounded-sm">
+                <TiltCard className="border-2 border-[#011E41]/15 p-8 md:p-10 bg-white h-full card-lift rounded-xl relative overflow-hidden group">
                   <svg className="w-10 h-10 text-[#011E41]/10 mb-8" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" /></svg>
                   <p className="text-[#011E41]/60 leading-relaxed mb-8 italic text-lg">&ldquo;{t.text}&rdquo;</p>
                   <div className="flex items-center gap-4">
                     <div className="w-10 h-10 rounded-full bg-[#011E41]/10 flex items-center justify-center"><span className="text-[#011E41] text-sm font-sans">{t.name[0]}</span></div>
                     <p className="text-[#011E41] text-sm tracking-wider uppercase">&mdash; {t.name}</p>
                   </div>
-                </div>
+                  <div className="absolute bottom-4 left-4 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 text-[#011E41]/30">→</div>
+                </TiltCard>
               </Reveal>
             ))}
           </div>

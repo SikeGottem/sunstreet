@@ -1,5 +1,6 @@
 "use client";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import SunLogo from "@/components/SunLogo";
 import CounterNumber from "@/components/CounterNumber";
@@ -7,6 +8,10 @@ import TiltCard from "@/components/TiltCard";
 import MagneticButton from "@/components/MagneticButton";
 import PageNav from "@/components/PageNav";
 import PageFooter from "@/components/PageFooter";
+import InteractiveDotGrid from "@/components/InteractiveDotGrid";
+import TextScramble from "@/components/TextScramble";
+import VelocityMarquee from "@/components/VelocityMarquee";
+import Marquee from "@/components/Marquee";
 
 function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
@@ -16,7 +21,19 @@ function Reveal({ children, delay = 0, className = "" }: { children: React.React
   );
 }
 
+const TAGLINE_WORDS = "Established in 2016, Sun Street was founded by an ex-management consultant with over 15 years experience in APAC.".split(" ");
+
+const MARQUEE_ITEMS = ["CONSULTING", "TRADING", "COACHING", "HONG KONG", "SINCE 2016"];
+
 function LandingHero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
+
+  const logoY = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const headingY = useTransform(scrollYProgress, [0, 1], [0, -150]);
+  const descY = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const cardsY = useTransform(scrollYProgress, [0, 1], [0, -30]);
+
   const cards = [
     { href: "/consulting", icon: "◈", title: "Consulting", desc: "With over 15 years consulting experience, Sun Street helps organisations develop and implement strategy" },
     { href: "/trading", icon: "◆", title: "Trading", desc: "At Sun Street, we are passionate about finding new or established brands for Asia" },
@@ -24,65 +41,81 @@ function LandingHero() {
   ];
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center items-center px-6 pt-32 pb-24 bg-white overflow-hidden">
-      {/* Dot grid background */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: "radial-gradient(circle, #011E41 0.5px, transparent 0.5px)",
-          backgroundSize: "24px 24px",
-          opacity: 0.03,
-        }}
-      />
+    <section ref={sectionRef} className="relative min-h-screen flex flex-col justify-center items-center px-6 py-24 bg-white overflow-hidden">
+      {/* Interactive dot grid canvas */}
+      <InteractiveDotGrid />
 
       <div className="relative z-10 flex flex-col items-center w-full max-w-6xl">
-        {/* Logo with rotation entrance */}
+        {/* Logo with rotation entrance + parallax */}
         <motion.div
+          style={{ y: logoY }}
           initial={{ opacity: 0, scale: 0.8, rotate: -90 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
           transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
         >
-          <SunLogo className="w-12 h-12 mx-auto mb-6" />
+          <SunLogo className="w-14 h-14 mx-auto mb-8" />
         </motion.div>
 
-        {/* Mixed weight heading */}
-        <motion.h1
+        {/* Giant SUN STREET heading with text scramble + parallax */}
+        <motion.div
+          style={{ y: headingY }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          className="text-xs tracking-[0.4em] uppercase text-[#011E41]/40 mb-3"
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="mb-6"
         >
-          Welcome to <span className="font-bold text-[#011E41]/70">Sun Street</span>
-        </motion.h1>
+          <h1 className="text-7xl md:text-9xl font-sans font-bold tracking-tight text-[#011E41] text-center leading-none">
+            <TextScramble text="SUN STREET" duration={1200} />
+          </h1>
+        </motion.div>
 
-        {/* Description */}
+        {/* Word-by-word staggered tagline + parallax */}
         <motion.p
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-          className="text-[#011E41]/50 text-sm leading-relaxed max-w-xl text-center mb-10"
+          style={{ y: descY }}
+          className="text-[#011E41]/50 text-sm md:text-base leading-relaxed max-w-xl text-center mb-8 flex flex-wrap justify-center gap-x-[0.3em]"
         >
-          Established in 2016, Sun Street was founded by an ex-management consultant with over 15 years experience in APAC.
+          {TAGLINE_WORDS.map((word, i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 0.8 + i * 0.04,
+                type: "spring",
+                stiffness: 100,
+                damping: 12,
+              }}
+            >
+              {word}
+            </motion.span>
+          ))}
         </motion.p>
 
-        {/* Rotating words */}
-        <motion.p
+        {/* Scroll-velocity marquee strip */}
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.8, duration: 0.8 }}
-          className="text-[#011E41]/50 text-sm mb-10"
+          transition={{ delay: 1.6, duration: 0.8 }}
+          className="w-screen mb-14 border-y border-[#011E41]/10 py-3"
         >
-        </motion.p>
+          <VelocityMarquee baseSpeed={0.5}>
+            {MARQUEE_ITEMS.map((item, i) => (
+              <span key={i} className="mx-6 text-xs text-[#011E41]/30 tracking-[0.3em] uppercase font-sans">
+                {item} <span className="mx-6 text-[#011E41]/15">✦</span>
+              </span>
+            ))}
+          </VelocityMarquee>
+        </motion.div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
+        {/* Cards with parallax */}
+        <motion.div style={{ y: cardsY }} className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
           {cards.map((card, i) => (
             <Link key={card.href} href={card.href} className="block h-full">
               <motion.div
                 className="h-full"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 + i * 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ delay: 1.2 + i * 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               >
               <TiltCard className="pillar-card group relative border-2 border-[#011E41]/10 bg-white p-10 py-14 text-center rounded-xl h-full overflow-hidden transition-all duration-500 hover:shadow-xl">
 
@@ -105,7 +138,7 @@ function LandingHero() {
               </motion.div>
             </Link>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

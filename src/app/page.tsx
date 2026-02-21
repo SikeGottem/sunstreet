@@ -72,7 +72,6 @@ function LandingHero() {
           transition={{ delay: 0.8, duration: 0.8 }}
           className="text-[#011E41]/50 text-sm mb-10"
         >
-          We help with <RotatingWords words={["Strategy", "Growth", "Brands", "Coaching"]} className="text-[#011E41]" />
         </motion.p>
 
         {/* Cards */}
@@ -85,7 +84,7 @@ function LandingHero() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 + i * 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               >
-              <TiltCard className="pillar-card group relative border-2 border-[#011E41]/10 bg-white p-8 text-center rounded-xl h-full overflow-hidden transition-all duration-500 hover:shadow-xl">
+              <TiltCard className="pillar-card group relative border-2 border-[#011E41]/10 bg-white p-10 py-14 text-center rounded-xl h-full overflow-hidden transition-all duration-500 hover:shadow-xl">
 
                 <span className="text-[#011E41]/25 text-2xl block mb-4 transition-colors duration-300 group-hover:text-white/50">{card.icon}</span>
 

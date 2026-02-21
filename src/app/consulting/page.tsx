@@ -1,11 +1,13 @@
 "use client";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import PageNav from "@/components/PageNav";
 import PageFooter from "@/components/PageFooter";
 import CounterNumber from "@/components/CounterNumber";
 import TiltCard from "@/components/TiltCard";
 import TextScramble from "@/components/TextScramble";
 
+/* ── Staggered fade-in on scroll ── */
 function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
     <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }} className={className}>
@@ -24,6 +26,79 @@ function SectionLabel({ number, label }: { number: string; label: string }) {
   );
 }
 
+/* ── Service item with fade-in tied to scroll ── */
+function ServiceItem({ svc, index }: { svc: { num: string; title: string; desc: string }; index: number }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, x: -30 }}
+      animate={isInView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.7, delay: index * 0.15, ease: [0.22, 1, 0.36, 1] }}
+      className="relative pl-10 pb-12 last:pb-0"
+    >
+      {/* Vertical line */}
+      <div className="absolute left-[7px] top-3 bottom-0 w-px bg-[#011E41]/10" />
+      {/* Dot */}
+      <motion.div
+        className="absolute left-0 top-[6px] w-[15px] h-[15px] rounded-full border-2 border-[#C9A84C] bg-white z-10"
+        initial={{ scale: 0 }}
+        animate={isInView ? { scale: 1 } : {}}
+        transition={{ duration: 0.4, delay: index * 0.15 + 0.2 }}
+      />
+      <TiltCard className="border-2 border-[#011E41]/15 p-8 bg-white group card-lift hover:bg-[#011E41] hover:border-[#011E41] rounded-xl relative overflow-hidden transition-colors duration-300">
+        <span className="text-[#C9A84C]/50 font-mono text-sm group-hover:text-white/30 transition-colors duration-300">{svc.num}</span>
+        <h4 className="font-sans text-2xl mt-4 mb-4 text-[#011E41] group-hover:text-white transition-colors duration-300">{svc.title}</h4>
+        <p className="text-[#011E41]/50 text-sm leading-relaxed group-hover:text-white/60 transition-colors duration-300">{svc.desc}</p>
+        <div className="w-0 group-hover:w-12 h-px bg-white/50 mt-6 transition-all duration-700" />
+        <div className="absolute bottom-4 left-4 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 text-white/40">→</div>
+      </TiltCard>
+    </motion.div>
+  );
+}
+
+/* ── Case study card with hover pattern reveal ── */
+function CaseStudyCard({ cs, delay }: { cs: { title: string; desc: string }; delay: number }) {
+  return (
+    <Reveal delay={delay}>
+      <TiltCard className="border-2 border-[#011E41]/15 p-8 md:p-10 bg-white h-full card-lift rounded-xl relative overflow-hidden group">
+        {/* Abstract pattern on hover */}
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
+          <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id={`grid-${cs.title.replace(/\s+/g, "")}`} width="40" height="40" patternUnits="userSpaceOnUse">
+                <circle cx="20" cy="20" r="1" fill="#011E41" opacity="0.06" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill={`url(#grid-${cs.title.replace(/\s+/g, "")})`} />
+          </svg>
+          <div className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-[#C9A84C]/5 blur-3xl" />
+        </div>
+        <span className="relative z-10 text-[#C9A84C] text-xs tracking-[0.3em] uppercase">{cs.title}</span>
+        <p className="relative z-10 text-[#011E41]/60 mt-4 leading-relaxed">{cs.desc}</p>
+        <div className="absolute bottom-4 left-4 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 text-[#011E41]/30 z-10">→</div>
+      </TiltCard>
+    </Reveal>
+  );
+}
+
+/* ── Client logo with hover scale ── */
+function ClientName({ name, delay }: { name: string; delay: number }) {
+  return (
+    <Reveal delay={delay}>
+      <motion.span
+        className="link-underline text-[#011E41]/25 hover:text-[#011E41]/60 transition-colors text-2xl md:text-3xl font-sans tracking-wider cursor-default inline-block"
+        whileHover={{ scale: 1.08 }}
+        transition={{ type: "spring", stiffness: 400, damping: 15 }}
+      >
+        {name}
+      </motion.span>
+    </Reveal>
+  );
+}
+
 export default function ConsultingPage() {
   const services = [
     { num: "01", title: "Strategic Operating Model Review", desc: "Holistic analysis of your organisation including people, process, technology and governance to highlight key opportunities and risks" },
@@ -39,32 +114,39 @@ export default function ConsultingPage() {
     { value: 2016, suffix: "", label: "Established", deco: "2016" },
     { value: 8, suffix: "+", label: "Countries", deco: "08" },
   ];
+  const clients = ["Verco", "Lion Nathan", "Babcock & Brown", "Ageas"];
+
+  /* Parallax refs */
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const heroTextY = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const heroSubY = useTransform(scrollYProgress, [0, 1], [0, -30]);
 
   return (
     <main className="bg-white text-[#011E41] font-sans">
       <PageNav />
 
-      {/* Hero */}
-      <section className="pt-32 pb-24 px-6 bg-white">
+      {/* Hero — parallax */}
+      <section ref={heroRef} className="pt-32 pb-24 px-6 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <Reveal><SectionLabel number="01" label="Consulting" /></Reveal>
           <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-start">
-            <div>
+            <motion.div style={{ y: heroTextY }}>
               <Reveal delay={0.1}><h1 className="text-gradient-navy font-sans text-5xl md:text-7xl leading-[0.95] mb-2"><TextScramble text="With over" /></h1></Reveal>
               <Reveal delay={0.2}><h1 className="text-gradient-navy font-sans text-5xl md:text-7xl leading-[0.95] italic">15 years</h1></Reveal>
               <Reveal delay={0.25}><h1 className="text-gradient-navy font-sans text-5xl md:text-7xl leading-[0.95] mb-10">experience</h1></Reveal>
-            </div>
-            <div className="md:mt-16">
+            </motion.div>
+            <motion.div className="md:mt-16" style={{ y: heroSubY }}>
               <Reveal delay={0.3}>
                 <p className="text-[#011E41]/60 text-lg leading-relaxed">Sun Street helps organisations develop and implement strategy. Established in 2016, we assist clients review, develop and implement strategic plans across industries.</p>
                 <p className="text-[#011E41]/50 mt-4 leading-relaxed">Founded by an ex-management consultant with 15+ years of APAC experience. From large scale transformations to SME business reviews.</p>
               </Reveal>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Stats */}
+      {/* Stats — animated counters (already via CounterNumber) */}
       <section className="py-20 px-6 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto grid grid-cols-3 gap-8">
           {stats.map((stat, i) => (
@@ -83,27 +165,20 @@ export default function ConsultingPage() {
         </div>
       </section>
 
-      {/* Services */}
+      {/* Services — numbered with vertical progress line */}
       <div className="section-divider" />
       <section className="py-24 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-6">
+          <Reveal><SectionLabel number="01" label="Services" /></Reveal>
+          <div className="max-w-2xl mt-12">
             {services.map((svc, i) => (
-              <Reveal key={svc.num} delay={i * 0.1}>
-                <TiltCard className="border-2 border-[#011E41]/15 p-8 bg-white h-full group card-lift hover:bg-[#011E41] hover:border-[#011E41] rounded-xl relative overflow-hidden">
-                  <span className="text-[#C9A84C]/50 font-mono text-sm group-hover:text-white/30 transition-colors duration-300">{svc.num}</span>
-                  <h4 className="font-sans text-2xl mt-4 mb-4 text-[#011E41] group-hover:text-white transition-colors duration-300">{svc.title}</h4>
-                  <p className="text-[#011E41]/50 text-sm leading-relaxed group-hover:text-white/60 transition-colors duration-300">{svc.desc}</p>
-                  <div className="w-0 group-hover:w-12 h-px bg-white/50 mt-6 transition-all duration-700" />
-                  <div className="absolute bottom-4 left-4 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 text-white/40">→</div>
-                </TiltCard>
-              </Reveal>
+              <ServiceItem key={svc.num} svc={svc} index={i} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* Case Studies */}
+      {/* Case Studies — hover pattern reveal */}
       <div className="section-divider" />
       <section className="py-24 px-6 bg-white">
         <div className="max-w-7xl mx-auto">
@@ -111,24 +186,16 @@ export default function ConsultingPage() {
           <Reveal delay={0.1}><h3 className="text-gradient-navy font-sans text-4xl md:text-5xl mb-16">Programme & <span className="italic">Change Management</span></h3></Reveal>
           <div className="grid md:grid-cols-2 gap-6">
             {caseStudies.map((cs, i) => (
-              <Reveal key={cs.title} delay={i * 0.15}>
-                <TiltCard className="border-2 border-[#011E41]/15 p-8 md:p-10 bg-white h-full card-lift rounded-xl relative overflow-hidden group">
-                  <span className="text-[#C9A84C] text-xs tracking-[0.3em] uppercase">{cs.title}</span>
-                  <p className="text-[#011E41]/60 mt-4 leading-relaxed">{cs.desc}</p>
-                  <div className="absolute bottom-4 left-4 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 text-[#011E41]/30">→</div>
-                </TiltCard>
-              </Reveal>
+              <CaseStudyCard key={cs.title} cs={cs} delay={i * 0.15} />
             ))}
           </div>
 
-          {/* Clients */}
+          {/* Clients — larger text with hover scale */}
           <div className="mt-24">
             <Reveal><p className="text-[#C9A84C] text-xs tracking-[0.4em] uppercase mb-10">Trusted By</p></Reveal>
             <div className="flex flex-wrap items-center gap-x-16 gap-y-6">
-              {["Verco", "Lion Nathan", "Babcock & Brown", "Ageas"].map((c, i) => (
-                <Reveal key={c} delay={i * 0.1}>
-                  <span className="link-underline text-[#011E41]/25 hover:text-[#011E41]/60 transition-colors text-xl font-sans tracking-wider cursor-default">{c}</span>
-                </Reveal>
+              {clients.map((c, i) => (
+                <ClientName key={c} name={c} delay={i * 0.1} />
               ))}
             </div>
           </div>

@@ -11,15 +11,16 @@ const logoStyle = {
   transition: "opacity 0.3s ease",
 };
 
-const hoverClass = "hover:!opacity-60";
+const logoClass = "relative";
 
 export function VercoLogo({ className = "h-8" }: LogoProps) {
   return (
-    <div className={`${className} ${hoverClass} relative`} style={{ aspectRatio: "3/1" }}>
+    <div className={`${className} ${logoClass}`} style={{ aspectRatio: "3/1" }}>
       <Image
         src="/images/verco-logo.svg"
         alt="Verco"
         fill
+        sizes="(max-width: 640px) 40vw, 18vw"
         className="object-contain"
         style={logoStyle}
       />
@@ -29,11 +30,12 @@ export function VercoLogo({ className = "h-8" }: LogoProps) {
 
 export function LionNathanLogo({ className = "h-8" }: LogoProps) {
   return (
-    <div className={`${className} ${hoverClass} relative`} style={{ aspectRatio: "2.5/1" }}>
+    <div className={`${className} ${logoClass}`} style={{ aspectRatio: "2.5/1" }}>
       <Image
         src="/images/lion-logo.svg"
         alt="Lion Nathan"
         fill
+        sizes="(max-width: 640px) 40vw, 18vw"
         className="object-contain"
         style={logoStyle}
       />
@@ -43,11 +45,12 @@ export function LionNathanLogo({ className = "h-8" }: LogoProps) {
 
 export function BabcockBrownLogo({ className = "h-8" }: LogoProps) {
   return (
-    <div className={`${className} ${hoverClass} relative`} style={{ aspectRatio: "11.33/1" }}>
+    <div className={`${className} ${logoClass}`} style={{ aspectRatio: "11.33/1" }}>
       <Image
         src="/images/babcock-brown-logo.svg"
         alt="Babcock & Brown"
         fill
+        sizes="(max-width: 640px) 40vw, 18vw"
         className="object-contain"
         style={logoStyle}
       />
@@ -57,11 +60,12 @@ export function BabcockBrownLogo({ className = "h-8" }: LogoProps) {
 
 export function AgeasLogo({ className = "h-8" }: LogoProps) {
   return (
-    <div className={`${className} ${hoverClass} relative`} style={{ aspectRatio: "3/1" }}>
+    <div className={`${className} ${logoClass}`} style={{ aspectRatio: "3/1" }}>
       <Image
         src="/images/ageas-logo.svg"
         alt="Ageas"
         fill
+        sizes="(max-width: 640px) 40vw, 18vw"
         className="object-contain"
         style={logoStyle}
       />

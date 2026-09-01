@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import SunLogo from "./SunLogo";
 
 const links = [
@@ -20,6 +20,8 @@ export default function PageNav({ tone = "light" }: PageNavProps) {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   const handleScroll = useCallback(() => setScrolled(window.scrollY > 56), []);
   const isInverted = menuOpen || (tone === "dark" && !scrolled);
@@ -36,8 +38,38 @@ export default function PageNav({ tone = "light" }: PageNavProps) {
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false);
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        toggleRef.current?.focus();
+      }
+
+      if (event.key !== "Tab" || !menuOpen || !panelRef.current) return;
+      const focusable = Array.from(panelRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'));
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (!panelRef.current.contains(document.activeElement)) {
+        event.preventDefault();
+        (event.shiftKey ? last : first).focus();
+      } else if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
+
+    if (menuOpen) {
+      const focusTimer = window.setTimeout(() => panelRef.current?.querySelector<HTMLElement>('a[href]')?.focus(), 60);
+      window.addEventListener("keydown", closeOnEscape);
+      return () => {
+        document.body.style.overflow = "";
+        window.clearTimeout(focusTimer);
+        window.removeEventListener("keydown", closeOnEscape);
+      };
+    }
+
     window.addEventListener("keydown", closeOnEscape);
     return () => {
       document.body.style.overflow = "";
@@ -73,6 +105,7 @@ export default function PageNav({ tone = "light" }: PageNavProps) {
           </div>
 
           <button
+            ref={toggleRef}
             className="menu-toggle"
             type="button"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -90,9 +123,13 @@ export default function PageNav({ tone = "light" }: PageNavProps) {
       </nav>
 
       <div
+        ref={panelRef}
         id="mobile-navigation"
         className={`menu-panel ${menuOpen ? "is-open" : ""}`}
         aria-hidden={!menuOpen}
+        role="dialog"
+        aria-modal={menuOpen ? "true" : undefined}
+        aria-label="Site navigation"
       >
         <div className="menu-panel__sun" aria-hidden="true">
           <SunLogo className="menu-panel__sun-mark" />

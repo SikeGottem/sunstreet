@@ -5,7 +5,8 @@ import KineticHeading from "./KineticHeading";
 import PageFooter from "./PageFooter";
 import PageNav from "./PageNav";
 import Reveal from "./Reveal";
-import SolarField from "./SolarField";
+import ServiceSignature from "./ServiceSignature";
+import type { ServiceVariant } from "./ServiceSignature";
 
 export type ServiceOffer = {
   title: string;
@@ -19,6 +20,7 @@ export type ServiceEvidence = {
 };
 
 type ServicePageProps = {
+  variant: ServiceVariant;
   index: string;
   label: string;
   title: ReactNode;
@@ -33,6 +35,7 @@ type ServicePageProps = {
 };
 
 export default function ServicePage({
+  variant,
   index,
   label,
   title,
@@ -46,14 +49,14 @@ export default function ServicePage({
   showClients = false,
 }: ServicePageProps) {
   return (
-    <main id="main-content" className="service-page">
-      <PageNav />
+    <main id="main-content" className={`service-page service-page--${variant}`}>
+      <PageNav tone={variant === "trading" ? "dark" : "light"} />
 
       <section className="service-hero" data-index={index} aria-labelledby="service-title">
-        <SolarField intensity="service" />
         <div className="site-shell service-hero__inner">
           <p className="eyebrow">{index} · {label}</p>
           <KineticHeading id="service-title">{title}</KineticHeading>
+          <ServiceSignature variant={variant} />
           <div className="service-hero__bottom">
             <p className="service-hero__intro">{intro}</p>
             <a className="service-hero__action" href="#services">

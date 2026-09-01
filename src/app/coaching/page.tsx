@@ -43,6 +43,7 @@ const evidence = [
 export default function CoachingPage() {
   return (
     <ServicePage
+      variant="coaching"
       index="03"
       label="Coaching"
       title={<>Change the belief.<br /><em>Change what follows.</em></>}

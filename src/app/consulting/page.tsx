@@ -43,6 +43,7 @@ const evidence = [
 export default function ConsultingPage() {
   return (
     <ServicePage
+      variant="consulting"
       index="01"
       label="Consulting"
       title={<>Strategy that reaches <em>operating reality.</em></>}

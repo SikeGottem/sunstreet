@@ -40,6 +40,7 @@ const regions = ["Hong Kong", "China", "Indonesia", "Japan", "Singapore", "Thail
 export default function TradingPage() {
   return (
     <ServicePage
+      variant="trading"
       index="02"
       label="Trading & Distribution"
       title={<>Global brands.<br /><em>Asian momentum.</em></>}

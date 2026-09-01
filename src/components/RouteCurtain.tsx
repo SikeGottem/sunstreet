@@ -8,11 +8,19 @@ import useHydratedReducedMotion from "./useHydratedReducedMotion";
 
 type Phase = "idle" | "cover" | "reveal";
 
+const routeNames: Record<string, { index: string; label: string }> = {
+  "/": { index: "00", label: "Sun Street" },
+  "/consulting": { index: "01", label: "Consulting" },
+  "/trading": { index: "02", label: "Trading" },
+  "/coaching": { index: "03", label: "Coaching" },
+};
+
 export default function RouteCurtain() {
   const pathname = usePathname();
   const router = useRouter();
   const reduceMotion = useHydratedReducedMotion();
   const [phase, setPhase] = useState<Phase>("idle");
+  const [destinationPath, setDestinationPath] = useState("/");
   const destinationRef = useRef<string | null>(null);
   const previousPathRef = useRef(pathname);
 
@@ -46,6 +54,7 @@ export default function RouteCurtain() {
       }
 
       destinationRef.current = next;
+      setDestinationPath(destination.pathname);
       setPhase("cover");
     };
 
@@ -55,7 +64,7 @@ export default function RouteCurtain() {
 
   useEffect(() => {
     if (phase !== "cover" || !destinationRef.current) return;
-    const navigate = window.setTimeout(() => router.push(destinationRef.current as string), 430);
+    const navigate = window.setTimeout(() => router.push(destinationRef.current as string), 340);
     const escape = window.setTimeout(() => setPhase("reveal"), 4500);
     return () => {
       window.clearTimeout(navigate);
@@ -76,15 +85,19 @@ export default function RouteCurtain() {
     const reset = window.setTimeout(() => {
       destinationRef.current = null;
       setPhase("idle");
-    }, 620);
+    }, 540);
     return () => window.clearTimeout(reset);
   }, [phase]);
 
+  const destination = routeNames[destinationPath] ?? { index: "→", label: "Next" };
+
   return (
     <div className={`route-curtain route-curtain--${phase}`} aria-hidden="true">
+      <div className="route-curtain__bands"><i /><i /><i /></div>
       <div className="route-curtain__horizon" />
       <SunLogo className="route-curtain__mark" />
-      <p>Shift the horizon</p>
+      <p className="route-curtain__destination"><span>{destination.index}</span>{destination.label}</p>
+      <p className="route-curtain__caption">Shift the horizon</p>
     </div>
   );
 }

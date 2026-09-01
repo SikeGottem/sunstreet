@@ -3,7 +3,7 @@
 
 ## Direction
 
-The horizon is the interface. The sunrise mark is not a logo pasted onto a page; its line, arc, light and sense of forward movement shape the whole experience.
+The sun is an instrument. The sunrise mark is not a logo pasted onto a page; it behaves as a lens, compass, scroll clock and field of influence. The horizon remains the site's structural line, while the sun makes change visible.
 
 The site should feel like a precise Hong Kong practice with range across APAC: calm, senior, international and quietly optimistic. It must never read like a generic consultancy template or a dashboard made of cards.
 
@@ -35,9 +35,11 @@ The site should feel like a precise Hong Kong practice with range across APAC: c
 
 ## Motion
 
-- Motion supports atmosphere or wayfinding: sunrise, horizon draw, content reveal, directional hover
+- Motion carries the concept: type separates under pressure, the sun attracts a field, practices orbit one shared centre and route changes cross a horizon
+- The homepage is a continuous sequence: kinetic poster → moving manifesto → three-force constellation
+- Service heroes retain the system through a restrained optical type echo and solar field
 - Interactive changes use interruptible transitions
-- Enter motion stays between 500–700ms; hover motion stays between 180–300ms
+- Primary transitions stay between 430–700ms; hover motion stays between 180–300ms
 - Never animate layout properties
 - Respect `prefers-reduced-motion` across smooth scrolling, scroll progress and content animation
 - Content must remain understandable and complete with all motion removed
@@ -54,7 +56,7 @@ The site should feel like a precise Hong Kong practice with range across APAC: c
 
 - Three equal cards with borders, radius and shadows
 - Low-opacity type used as body copy
-- Decorative motion with no hierarchy purpose
+- Decorative motion with no relationship to the sun, change or navigation
 - Repeated page templates that make the three disciplines indistinguishable
 - Hidden content that only appears after scrolling
 - Testimonials in carousels without a narrative reason

@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import ScrollProgress from "@/components/ScrollProgress";
 import SmoothScroll from "@/components/SmoothScroll";
+import RouteCurtain from "@/components/RouteCurtain";
 
 const ddin = localFont({
   src: [
@@ -32,13 +33,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={ddin.variable}>
+    <html lang="en" className={ddin.variable} data-scroll-behavior="smooth">
       <body className="font-sans antialiased">
         <a className="skip-link" href="#main-content">
           Skip to content
         </a>
         <ScrollProgress />
         <SmoothScroll />
+        <RouteCurtain />
         {children}
       </body>
     </html>

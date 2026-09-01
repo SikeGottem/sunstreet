@@ -1,9 +1,11 @@
 // Data-driven service canvas keeps each discipline distinct inside one editorial system.
 import { AgeasLogo, BabcockBrownLogo, LionNathanLogo, VercoLogo } from "./ClientLogos";
 import type { ReactNode } from "react";
+import KineticHeading from "./KineticHeading";
 import PageFooter from "./PageFooter";
 import PageNav from "./PageNav";
 import Reveal from "./Reveal";
+import SolarField from "./SolarField";
 
 export type ServiceOffer = {
   title: string;
@@ -48,9 +50,10 @@ export default function ServicePage({
       <PageNav />
 
       <section className="service-hero" data-index={index} aria-labelledby="service-title">
+        <SolarField intensity="service" />
         <div className="site-shell service-hero__inner">
           <p className="eyebrow">{index} · {label}</p>
-          <h1 id="service-title" className="service-hero__heading">{title}</h1>
+          <KineticHeading id="service-title">{title}</KineticHeading>
           <div className="service-hero__bottom">
             <p className="service-hero__intro">{intro}</p>
             <a className="service-hero__action" href="#services">

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import ScrollProgress from "@/components/ScrollProgress";
-import SmoothScroll from "@/components/SmoothScroll";
 import RouteCurtain from "@/components/RouteCurtain";
 
 const ddin = localFont({
@@ -10,7 +9,7 @@ const ddin = localFont({
     { path: "../../public/fonts/D-DIN-Bold.woff2", weight: "400", style: "normal" },
     { path: "../../public/fonts/D-DIN-Regular.woff2", weight: "700", style: "normal" },
   ],
-  variable: "--font-sans",
+  variable: "--font-ddin",
   display: "swap",
 });
 
@@ -39,7 +38,6 @@ export default function RootLayout({
           Skip to content
         </a>
         <ScrollProgress />
-        <SmoothScroll />
         <RouteCurtain />
         {children}
       </body>

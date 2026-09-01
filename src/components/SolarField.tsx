@@ -73,36 +73,36 @@ export default function SolarField({ className = "", intensity = "hero" }: Solar
       context.lineTo(width, centerY);
       context.stroke();
 
-      for (let ring = 0; ring < 6; ring += 1) {
-        context.strokeStyle = `rgba(228, 200, 109, ${0.08 + ring * 0.022})`;
-        context.lineWidth = ring === 5 ? 1.2 : 0.7;
+      for (let ring = 0; ring < 3; ring += 1) {
+        context.strokeStyle = `rgba(228, 200, 109, ${0.1 + ring * 0.035})`;
+        context.lineWidth = ring === 2 ? 1.1 : 0.7;
         context.beginPath();
-        context.arc(centerX, centerY, radius * (0.42 + ring * 0.17), Math.PI, Math.PI * 2);
+        context.arc(centerX, centerY, radius * (0.5 + ring * 0.3), Math.PI, Math.PI * 2);
         context.stroke();
       }
 
-      for (let ray = 0; ray < 54; ray += 1) {
-        const ratio = ray / 53;
+      for (let ray = 0; ray < 18; ray += 1) {
+        const ratio = ray / 17;
         const angle = Math.PI + ratio * Math.PI;
         const pulse = 0.86 + Math.sin(phase * 7 + ray * 0.73) * 0.12;
         const inner = radius * 0.16;
         const outer = radius * (0.96 + (ray % 5) * 0.055) * pulse;
-        context.strokeStyle = `rgba(228, 200, 109, ${0.08 + (ray % 4) * 0.025})`;
-        context.lineWidth = ray % 9 === 0 ? 1.1 : 0.55;
+        context.strokeStyle = `rgba(228, 200, 109, ${0.1 + (ray % 3) * 0.035})`;
+        context.lineWidth = ray % 6 === 0 ? 1.1 : 0.55;
         context.beginPath();
         context.moveTo(centerX + Math.cos(angle) * inner, centerY + Math.sin(angle) * inner);
         context.lineTo(centerX + Math.cos(angle) * outer, centerY + Math.sin(angle) * outer);
         context.stroke();
       }
 
-      for (let particle = 0; particle < 72; particle += 1) {
+      for (let particle = 0; particle < 18; particle += 1) {
         const seed = (particle * 47) % 101;
         const orbit = radius * (0.3 + (seed / 101) * 1.35);
         const direction = particle % 2 === 0 ? 1 : -1;
         const angle = particle * 2.399 + phase * direction * (0.3 + (particle % 7) * 0.06);
         const px = centerX + Math.cos(angle) * orbit * 1.35;
         const py = centerY + Math.sin(angle) * orbit * 0.72;
-        const size = particle % 11 === 0 ? 1.8 : 0.75;
+        const size = particle % 7 === 0 ? 1.6 : 0.7;
         context.fillStyle = particle % 6 === 0 ? "rgba(255,255,255,0.72)" : "rgba(228,200,109,0.5)";
         context.beginPath();
         context.arc(px, py, size, 0, Math.PI * 2);

@@ -20,11 +20,12 @@ export default function Home() {
 
       <section className="motion-manifesto" aria-labelledby="manifesto-title">
         <div className="site-shell motion-manifesto__inner">
-          <p className="eyebrow">The point of view</p>
+          <div className="motion-manifesto__meta">
+            <p className="eyebrow">The point of view</p>
+            <span>Direction · Reach · Belief</span>
+          </div>
           <h2 id="manifesto-title">
-            <span className="motion-line motion-line--left">Change is never</span>
-            <span className="motion-line motion-line--right">one thing.</span>
-            <em className="motion-line motion-line--left">It is a field of forces.</em>
+            Change is a<br /><span>field of forces.</span>
           </h2>
           <p className="motion-manifesto__copy">
             Sun Street works where direction, reach and belief become practical movement.

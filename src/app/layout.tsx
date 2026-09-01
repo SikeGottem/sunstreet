@@ -7,8 +7,8 @@ import RouteCurtain from "@/components/RouteCurtain";
 
 const ddin = localFont({
   src: [
-    { path: "../../public/fonts/D-DIN-Regular.woff2", weight: "400", style: "normal" },
-    { path: "../../public/fonts/D-DIN-Bold.woff2", weight: "700", style: "normal" },
+    { path: "../../public/fonts/D-DIN-Bold.woff2", weight: "400", style: "normal" },
+    { path: "../../public/fonts/D-DIN-Regular.woff2", weight: "700", style: "normal" },
   ],
   variable: "--font-sans",
   display: "swap",

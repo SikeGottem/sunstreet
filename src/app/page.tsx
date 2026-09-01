@@ -1,185 +1,134 @@
-"use client";
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+// Sun Street homepage presents the three practices through one horizon-led brand narrative.
 import Link from "next/link";
-import SunLogo from "@/components/SunLogo";
-import CounterNumber from "@/components/CounterNumber";
-import TiltCard from "@/components/TiltCard";
-import PageNav from "@/components/PageNav";
+import { AgeasLogo, BabcockBrownLogo, LionNathanLogo, VercoLogo } from "@/components/ClientLogos";
 import PageFooter from "@/components/PageFooter";
-import InteractiveDotGrid from "@/components/InteractiveDotGrid";
-import TextScramble from "@/components/TextScramble";
-import VelocityMarquee from "@/components/VelocityMarquee";
-import Marquee from "@/components/Marquee";
+import PageNav from "@/components/PageNav";
+import Reveal from "@/components/Reveal";
+import SolarHorizon from "@/components/SolarHorizon";
 
-function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
+const practices = [
+  {
+    index: "01",
+    href: "/consulting",
+    title: "Consulting",
+    description: "Strategy that survives contact with the real organisation — from operating model to implementation.",
+  },
+  {
+    index: "02",
+    href: "/trading",
+    title: "Trading",
+    description: "Market knowledge, distribution and retail strategy for brands ready to move across Asia.",
+  },
+  {
+    index: "03",
+    href: "/coaching",
+    title: "Coaching",
+    description: "Personal work that changes the subconscious beliefs shaping what happens next.",
+  },
+];
+
+const stats = [
+  { label: "Years of APAC experience", value: "15+" },
+  { label: "Founded in Hong Kong", value: "2016" },
+  { label: "Markets reached", value: "8+" },
+];
+
+export default function Home() {
   return (
-    <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }} className={className}>
-      {children}
-    </motion.div>
-  );
-}
+    <main id="main-content">
+      <PageNav tone="dark" />
 
-const TAGLINE_WORDS = "Established in 2016, Sun Street was founded by an ex-management consultant with over 15 years experience in APAC.".split(" ");
+      <section className="home-hero" aria-labelledby="home-title">
+        <SolarHorizon />
+        <div className="site-shell home-hero__content">
+          <div className="home-hero__topline">
+            <p className="eyebrow eyebrow--light">Hong Kong · Since 2016</p>
+            <span className="home-hero__coordinates">22.3193° N · 114.1694° E</span>
+          </div>
 
-const MARQUEE_ITEMS = ["CONSULTING", "TRADING", "COACHING", "HONG KONG", "SINCE 2016"];
-
-function LandingHero() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
-
-  const logoY = useTransform(scrollYProgress, [0, 1], [0, -80]);
-  const headingY = useTransform(scrollYProgress, [0, 1], [0, -150]);
-  const descY = useTransform(scrollYProgress, [0, 1], [0, -60]);
-  const cardsY = useTransform(scrollYProgress, [0, 1], [0, -30]);
-
-  const cards = [
-    { href: "/consulting", icon: "◈", title: "Consulting", desc: "With over 15 years consulting experience, Sun Street helps organisations develop and implement strategy" },
-    { href: "/trading", icon: "◆", title: "Trading", desc: "At Sun Street, we are passionate about finding new or established brands for Asia" },
-    { href: "/coaching", icon: "○", title: "Coaching", desc: "Sun Street provides personal life coaching to change subconscious beliefs that are self-limiting and self-sabotaging" },
-  ];
-
-  return (
-    <section ref={sectionRef} className="relative min-h-screen flex flex-col justify-center items-center px-6 py-24 bg-white overflow-hidden">
-      {/* Interactive dot grid canvas */}
-      <InteractiveDotGrid />
-
-      <div className="relative z-10 flex flex-col items-center w-full max-w-6xl">
-        {/* Logo with rotation entrance + parallax */}
-        <motion.div
-          style={{ y: logoY }}
-          initial={{ opacity: 0, scale: 0.8, rotate: -90 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <SunLogo className="w-14 h-14 mx-auto mb-8" />
-        </motion.div>
-
-        {/* Giant SUN STREET heading with text scramble + parallax */}
-        <motion.div
-          style={{ y: headingY }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-          className="mb-6"
-        >
-          <h1 className="text-5xl sm:text-7xl md:text-9xl font-sans font-bold tracking-tight text-[#011E41] text-center leading-none">
-            <TextScramble text="SUN STREET" duration={1200} />
+          <h1 id="home-title" className="home-hero__title">
+            <span>SUN</span>
+            <span>STREET</span>
           </h1>
-        </motion.div>
 
-        {/* Word-by-word staggered tagline + parallax */}
-        <motion.p
-          style={{ y: descY }}
-          className="text-[#011E41]/50 text-sm md:text-base leading-relaxed max-w-xl text-center mb-8 flex flex-wrap justify-center gap-x-[0.3em]"
-        >
-          {TAGLINE_WORDS.map((word, i) => (
-            <motion.span
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.8 + i * 0.04,
-                type: "spring",
-                stiffness: 100,
-                damping: 12,
-              }}
-            >
-              {word}
-            </motion.span>
-          ))}
-        </motion.p>
+          <div className="home-hero__footer">
+            <p className="home-hero__descriptor">
+              Strategy, distribution and personal transformation — three disciplines for moments when standing still is not an option.
+            </p>
+            <a className="hero-link" href="#practice">
+              Explore the practice <span aria-hidden="true">↓</span>
+            </a>
+          </div>
+        </div>
+      </section>
 
-        {/* Scroll-velocity marquee strip */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.6, duration: 0.8 }}
-          className="w-screen mb-14 border-y border-[#011E41]/10 py-3"
-        >
-          <VelocityMarquee baseSpeed={0.5}>
-            {MARQUEE_ITEMS.map((item, i) => (
-              <span key={i} className="mx-6 text-xs text-[#011E41]/30 tracking-[0.3em] uppercase font-sans">
-                {item} <span className="mx-6 text-[#011E41]/15">✦</span>
-              </span>
-            ))}
-          </VelocityMarquee>
-        </motion.div>
+      <section id="practice" className="practice-intro" aria-labelledby="practice-title">
+        <div className="site-shell practice-intro__grid">
+          <Reveal>
+            <h2 id="practice-title" className="practice-intro__title">
+              Three disciplines.<br />
+              One <em>point of view.</em>
+            </h2>
+          </Reveal>
+          <Reveal delay={0.08}>
+            <p className="practice-intro__copy">
+              Sun Street works where change becomes practical: inside organisations, across markets and within people. The context changes. The standard does not.
+            </p>
+          </Reveal>
+        </div>
+      </section>
 
-        {/* Cards with parallax */}
-        <motion.div style={{ y: cardsY }} className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
-          {cards.map((card, i) => (
-            <Link key={card.href} href={card.href} className="block h-full">
-              <motion.div
-                className="h-full"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.2 + i * 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              >
-              <TiltCard className="pillar-card group relative border-2 border-[#011E41]/10 bg-white p-10 py-14 text-center rounded-xl h-full overflow-hidden transition-all duration-500 hover:shadow-xl">
-
-                <span className="text-[#011E41]/25 text-2xl block mb-4 transition-colors duration-300 group-hover:text-white/50">{card.icon}</span>
-
-                {/* Title with animated underline */}
-                <h3 className="relative inline-block font-sans text-xl tracking-wide mb-3 text-[#011E41] transition-colors duration-300 group-hover:text-white">
-                  {card.title}
-                  <span className="absolute bottom-0 left-0 w-0 h-px bg-[#011E41] transition-all duration-500 group-hover:w-full group-hover:bg-white" />
-                </h3>
-
-                <p className="text-[#011E41]/45 text-sm leading-relaxed transition-colors duration-300 group-hover:text-white/70">{card.desc}</p>
-
-                {/* Hover gradient + arrow */}
-                <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#011E41]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 group-hover:from-white/5" />
-                <div className="absolute bottom-4 right-4 opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 text-[#011E41]/40 group-hover:text-white/60 text-lg">
-                  →
-                </div>
-              </TiltCard>
-              </motion.div>
-            </Link>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-function StatsSection() {
-  const stats = [
-    { value: 15, suffix: "+", label: "Years Experience", deco: "15" },
-    { value: 2016, suffix: "", label: "Established", deco: "2016" },
-    { value: 8, suffix: "+", label: "Countries", deco: "08" },
-    { value: 3, suffix: "", label: "Core Pillars", deco: "03" },
-  ];
-  return (
-    <>
-      <div className="section-divider" />
-      <section className="py-24 px-6 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
-          {stats.map((stat, i) => (
-            <Reveal key={stat.label} delay={i * 0.1}>
-              <div className="relative text-center">
-                <span className="deco-number absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[120px] md:text-[180px]">{stat.deco}</span>
-                <div className="relative z-10">
-                  <div className="font-sans text-5xl md:text-7xl text-[#011E41] mb-2">
-                    <CounterNumber end={stat.value} suffix={stat.suffix} duration={2 + i * 0.3} />
-                  </div>
-                  <p className="text-[#011E41]/40 text-xs tracking-[0.3em] uppercase">{stat.label}</p>
-                </div>
-              </div>
+      <section className="service-index" aria-label="Sun Street practices">
+        <div className="site-shell">
+          {practices.map((practice, index) => (
+            <Reveal key={practice.href} delay={index * 0.06}>
+              <Link className="service-row" href={practice.href}>
+                <span className="service-row__index">{practice.index}</span>
+                <h3 className="service-row__title">{practice.title}</h3>
+                <p className="service-row__copy">{practice.description}</p>
+                <span className="service-row__arrow" aria-hidden="true">↗</span>
+              </Link>
             </Reveal>
           ))}
         </div>
       </section>
-    </>
-  );
-}
 
-export default function Home() {
-  return (
-    <main className="bg-white text-[#011E41] font-sans">
-      <PageNav />
-      <LandingHero />
-      <StatsSection />
+      <section className="proof-section" aria-labelledby="proof-title">
+        <div className="site-shell proof-section__grid">
+          <Reveal>
+            <p className="eyebrow">Built for the decisive moment</p>
+            <h2 id="proof-title" className="proof-section__statement">
+              Experience without the <em>distance.</em>
+            </h2>
+          </Reveal>
+          <div className="proof-section__aside">
+            {stats.map((stat, index) => (
+              <Reveal key={stat.label} delay={index * 0.08}>
+                <div className="proof-stat">
+                  <span>{stat.label}</span>
+                  <strong>{stat.value}</strong>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="client-band" aria-labelledby="client-title">
+        <div className="site-shell client-band__grid">
+          <div>
+            <p className="eyebrow">Selected experience</p>
+            <h2 id="client-title" className="sr-only">Organisations Sun Street has worked with</h2>
+          </div>
+          <div className="client-band__logos">
+            <VercoLogo className="h-10" />
+            <LionNathanLogo className="h-10" />
+            <BabcockBrownLogo className="h-10" />
+            <AgeasLogo className="h-10" />
+          </div>
+        </div>
+      </section>
+
       <PageFooter />
     </main>
   );

@@ -17,6 +17,13 @@ export const metadata: Metadata = {
   title: "Sun Street — Consulting · Trading · Coaching",
   description:
     "Sun Street helps organisations develop strategy, distributes brands across Asia, and provides transformative life coaching.",
+  metadataBase: new URL("https://sunstreet.vercel.app"),
+  openGraph: {
+    title: "Sun Street — Consulting · Trading · Coaching",
+    description:
+      "Strategy, distribution and personal transformation from Hong Kong to the wider APAC region.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -26,7 +33,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={ddin.variable}>
-      <body className="bg-white text-[#011E41] font-sans antialiased">
+      <body className="font-sans antialiased">
+        <a className="skip-link" href="#main-content">
+          Skip to content
+        </a>
         <ScrollProgress />
         <SmoothScroll />
         {children}

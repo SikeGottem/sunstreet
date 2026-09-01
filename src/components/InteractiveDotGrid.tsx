@@ -24,11 +24,6 @@ export default function InteractiveDotGrid() {
       ctx.scale(dpr, dpr);
     };
 
-    const onMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      mouse = { x: e.clientX - rect.left, y: e.clientY - rect.top };
-    };
-
     const onLeave = () => {
       mouse = { x: -1000, y: -1000 };
     };

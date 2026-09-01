@@ -11,7 +11,7 @@ function CursorDot() {
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (!window.matchMedia("(pointer: fine)").matches) return;
-    setHidden(false);
+    const revealFrame = window.requestAnimationFrame(() => setHidden(false));
     const onMove = (e: MouseEvent) => setPos({ x: e.clientX, y: e.clientY });
     const onOver = (e: MouseEvent) => {
       if ((e.target as HTMLElement).closest("a, button, [data-magnetic], [data-hover]")) setHovering(true);
@@ -25,6 +25,7 @@ function CursorDot() {
     window.addEventListener("mousedown", onDown);
     window.addEventListener("mouseup", onUp);
     return () => {
+      window.cancelAnimationFrame(revealFrame);
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseover", onOver);
       window.removeEventListener("mouseout", onOut);

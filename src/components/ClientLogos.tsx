@@ -43,7 +43,7 @@ export function LionNathanLogo({ className = "h-8" }: LogoProps) {
 
 export function BabcockBrownLogo({ className = "h-8" }: LogoProps) {
   return (
-    <div className={`${className} ${hoverClass} relative`} style={{ aspectRatio: "5/1" }}>
+    <div className={`${className} ${hoverClass} relative`} style={{ aspectRatio: "11.33/1" }}>
       <Image
         src="/images/babcock-brown-logo.svg"
         alt="Babcock & Brown"

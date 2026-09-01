@@ -9,12 +9,13 @@ export default function SunLogo({ className = "w-10 h-10" }: { className?: strin
   // 17 rays from 180° to 0° (left to right across the top)
   const rayCount = 17;
   const rays = [];
+  const coordinate = (value: number) => value.toFixed(4);
   for (let i = 0; i < rayCount; i++) {
     const angle = Math.PI - (i * Math.PI) / (rayCount - 1);
-    const x1 = cx + Math.cos(angle) * rayInner;
-    const y1 = cy + Math.sin(angle) * -rayInner;
-    const x2 = cx + Math.cos(angle) * rayOuter;
-    const y2 = cy + Math.sin(angle) * -rayOuter;
+    const x1 = coordinate(cx + Math.cos(angle) * rayInner);
+    const y1 = coordinate(cy + Math.sin(angle) * -rayInner);
+    const x2 = coordinate(cx + Math.cos(angle) * rayOuter);
+    const y2 = coordinate(cy + Math.sin(angle) * -rayOuter);
     rays.push({ x1, y1, x2, y2 });
   }
 

@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { useScroll, useMotionValueEvent } from "framer-motion";
 
 export default function VelocityMarquee({

@@ -1,77 +1,64 @@
-// Sun Street homepage presents the three practices through one horizon-led brand narrative.
-import { AgeasLogo, BabcockBrownLogo, LionNathanLogo, VercoLogo } from "@/components/ClientLogos";
-import KineticHero from "@/components/KineticHero";
-import PageFooter from "@/components/PageFooter";
+// Sun Street homepage is a single-screen horizontal director to the three practices.
+import Link from "next/link";
 import PageNav from "@/components/PageNav";
-import PracticeConstellation from "@/components/PracticeConstellation";
-import Reveal from "@/components/Reveal";
 
-const stats = [
-  { label: "Years of APAC experience", value: "15+" },
-  { label: "Founded in Hong Kong", value: "2016" },
-  { label: "Markets reached", value: "8+" },
+const directions = [
+  {
+    index: "01",
+    href: "/consulting",
+    title: "Consulting",
+    signal: "Direction",
+    statement: "Develop strategy and turn it into operating reality.",
+  },
+  {
+    index: "02",
+    href: "/trading",
+    title: "Trading",
+    signal: "Reach",
+    statement: "Move global brands through Asian markets.",
+  },
+  {
+    index: "03",
+    href: "/coaching",
+    title: "Coaching",
+    signal: "Belief",
+    statement: "Change the patterns shaping what comes next.",
+  },
 ];
 
 export default function Home() {
   return (
-    <main id="main-content">
+    <main id="main-content" className="home-directory-page">
       <PageNav tone="dark" />
-      <KineticHero />
 
-      <section className="motion-manifesto" aria-labelledby="manifesto-title">
-        <div className="site-shell motion-manifesto__inner">
-          <div className="motion-manifesto__meta">
-            <p className="eyebrow">The point of view</p>
-            <span>Direction · Reach · Belief</span>
-          </div>
-          <h2 id="manifesto-title">
-            Change is a<br /><span>field of forces.</span>
-          </h2>
-          <p className="motion-manifesto__copy">
-            Sun Street works where direction, reach and belief become practical movement.
-          </p>
-        </div>
-      </section>
-
-      <PracticeConstellation />
-
-      <section className="proof-section" aria-labelledby="proof-title">
-        <div className="site-shell proof-section__grid">
-          <Reveal>
-            <p className="eyebrow">Built for the decisive moment</p>
-            <h2 id="proof-title" className="proof-section__statement">
-              Experience without the <em>distance.</em>
-            </h2>
-          </Reveal>
-          <div className="proof-section__aside">
-            {stats.map((stat, index) => (
-              <Reveal key={stat.label} delay={index * 0.08}>
-                <div className="proof-stat">
-                  <span>{stat.label}</span>
-                  <strong>{stat.value}</strong>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="client-band" aria-labelledby="client-title">
-        <div className="site-shell client-band__grid">
+      <section className="home-directory" aria-labelledby="directory-title">
+        <header className="site-shell home-directory__intro">
           <div>
-            <p className="eyebrow">Selected experience</p>
-            <h2 id="client-title" className="sr-only">Organisations Sun Street has worked with</h2>
+            <p className="eyebrow eyebrow--light">Welcome to Sun Street</p>
+            <h1 id="directory-title">Three directions.<br /><span>Choose yours.</span></h1>
           </div>
-          <div className="client-band__logos">
-            <VercoLogo className="h-10" />
-            <LionNathanLogo className="h-10" />
-            <BabcockBrownLogo className="h-10" />
-            <AgeasLogo className="h-10" />
+          <div className="home-directory__intro-copy">
+            <p>Strategy, distribution and personal transformation from Hong Kong across APAC.</p>
+            <a href="mailto:hello@sunstreethk.com">hello@sunstreethk.com <span aria-hidden="true">↗</span></a>
           </div>
-        </div>
-      </section>
+        </header>
 
-      <PageFooter />
+        <nav className="home-directory__routes" aria-label="Sun Street practices">
+          {directions.map((direction) => (
+            <Link key={direction.href} href={direction.href} className="home-direction">
+              <div className="home-direction__meta">
+                <span>{direction.index}</span>
+                <span>{direction.signal}</span>
+              </div>
+              <h2>{direction.title}</h2>
+              <p>{direction.statement}</p>
+              <span className="home-direction__enter">Enter <i aria-hidden="true">↗</i></span>
+            </Link>
+          ))}
+          <div className="home-directory__sun" aria-hidden="true"><span /></div>
+          <div className="home-directory__horizon" aria-hidden="true" />
+        </nav>
+      </section>
     </main>
   );
 }
